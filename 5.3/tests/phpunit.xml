@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="bootstrap.php">
 
-	<filter>
-		<whitelist addUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">../src</directory>
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../src</directory>
             <exclude>
                 <file>../src/autoload.php</file>
             </exclude>
-		</whitelist>
-	</filter>
+        </whitelist>
+    </filter>
 
-	<testsuites>
-		<testsuite name="Все тесты">
+    <testsuites>
+        <testsuite name="Все тесты">
             <file>HTTP/Request/Native.php</file>
-		</testsuite>
-	</testsuites>
+        </testsuite>
+    </testsuites>
 
 </phpunit>
