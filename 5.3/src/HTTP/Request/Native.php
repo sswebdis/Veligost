@@ -23,8 +23,6 @@
 
 namespace Veligost\HTTP\Request;
 
-use InvalidArgumentException;
-
 /**
  * Предоставляет доступ к данным запроса HTTP используя встроенные средства PHP: суперглобальные
  * переменные $_GET и $_FILES.
