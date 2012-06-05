@@ -11,8 +11,8 @@
     </filter>
 
     <testsuites>
-        <testsuite name="Все тесты">
-            <file>HTTP/Request/Native.php</file>
+        <testsuite name="Veligost">
+            <directory suffix="_Test.php">.</directory>
         </testsuite>
     </testsuites>
 
