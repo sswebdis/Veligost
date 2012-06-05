@@ -50,3 +50,15 @@ namespace Veligost\HTTP\Request
         return isset($GLOBALS['phpversion']) ? $GLOBALS['phpversion'] : PHP_VERSION;
     }
 }
+
+namespace Veligost\SessionStorage
+{
+    function session_id()
+    {
+        if (!isset($GLOBALS['session_id']))
+        {
+            $GLOBALS['session_id'] = uniqid();
+        }
+        return $GLOBALS['session_id'];
+    }
+}
