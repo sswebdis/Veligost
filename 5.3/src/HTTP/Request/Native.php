@@ -25,7 +25,7 @@ namespace Veligost\HTTP\Request;
 
 /**
  * Предоставляет доступ к данным запроса HTTP используя встроенные средства PHP: суперглобальные
- * переменные $_GET и $_FILES.
+ * переменные $_GET, $_COOKIE и $_FILES.
  */
 class Native implements RequestInterface
 {
@@ -41,6 +41,22 @@ class Native implements RequestInterface
         if (array_key_exists($key, $_GET))
         {
             return $_GET[$key];
+        }
+        return null;
+    }
+
+    /**
+     * Возвращает значение куки
+     *
+     * @param string $name  имя куки
+     *
+     * @return null|string  значение куки или null, если такой куки отсутствует
+     */
+    public function getCookie($name)
+    {
+        if (array_key_exists($name, $_COOKIE))
+        {
+            return $_COOKIE[$name];
         }
         return null;
     }

@@ -46,6 +46,15 @@ interface RequestInterface
     public function getArg($key);
 
     /**
+     * Возвращает значение куки
+     *
+     * @param string $name  имя куки
+     *
+     * @return null|string  значение куки или null, если такой куки отсутствует
+     */
+    public function getCookie($name);
+
+    /**
      * Возвращает true если реализация поддерживает получение временного имени загруженного файла
      *
      * @return bool

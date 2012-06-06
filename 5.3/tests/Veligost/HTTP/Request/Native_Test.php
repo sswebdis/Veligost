@@ -47,6 +47,19 @@ class Native_Test extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Veligost\HTTP\Request\Native::getCookie
+     */
+    public function test_getCookie()
+    {
+        $req = new Native;
+
+        $this->assertNull($req->getCookie('foo'));
+
+        $_COOKIE['bar'] = 'baz';
+        $this->assertEquals('baz', $req->getCookie('bar'));
+    }
+
+    /**
      * @covers \Veligost\HTTP\Request\Native::providesUploadedTempName
      */
     public function test_providesUploadedTempName()
