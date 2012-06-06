@@ -58,4 +58,14 @@ class Response_Test extends \PHPUnit_Framework_TestCase
         $this->expectOutputString("failure\nFoo");
         $response->send();
     }
+
+    /**
+     * @covers \Veligost\Response::setStatus
+     * @expectedException InvalidArgumentException
+     */
+    public function test_setStatus_invalid()
+    {
+        $response = new Response();
+        $response->setStatus('foo');
+    }
 }
