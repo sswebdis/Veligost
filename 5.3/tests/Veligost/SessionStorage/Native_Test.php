@@ -1,6 +1,6 @@
 <?php
 /**
- * Модульные тесты
+ * Тесты
  *
  * @copyright 2012 ООО «Два слона» http://dvaslona.ru/
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -21,45 +21,23 @@
  * limitations under the License.
  */
 
-namespace
+namespace Veligost\Tests\SessionStorage;
+
+use Veligost\SessionStorage\Native;
+
+/**
+ *
+ */
+class Native_Test extends \PHPUnit_Framework_TestCase
 {
-    define('_TEST_DIR', __DIR__ );
-    define('_SRC_DIR', realpath(__DIR__ . '/../src'));
-
-    require_once _SRC_DIR . '/autoload.php';
-}
-
-namespace Veligost\HTTP\Request
-{
-    function ini_get($key)
+    /**
+     * @covers \Veligost\SessionStorage\Native::createSession
+     */
+    public function test_createSession()
     {
-        return isset($GLOBALS['ini'][$key]) ? $GLOBALS['ini'][$key] : null;
+        $storage = new Native;
+        $sid = $storage->createSession();
+        $this->assertNotEmpty($sid);
     }
 
-    function ini_set($key, $value)
-    {
-        if (!array_key_exists('ini', $GLOBALS))
-        {
-            $GLOBALS['ini'] = array();
-        }
-        $GLOBALS['ini'][$key] = $value;
-    }
-
-    function phpversion()
-    {
-        return isset($GLOBALS['phpversion']) ? $GLOBALS['phpversion'] : PHP_VERSION;
-    }
-}
-
-namespace Veligost\SessionStorage
-{
-    function session_start()
-    {
-        $GLOBALS['session_id'] = uniqid();
-    }
-
-    function session_id()
-    {
-        return $GLOBALS['session_id'];
-    }
 }

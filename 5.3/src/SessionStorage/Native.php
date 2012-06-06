@@ -35,6 +35,7 @@ class Native implements  SessionStorageInterface
      */
     public function createSession()
     {
+        session_start();
         return session_id();
     }
 
