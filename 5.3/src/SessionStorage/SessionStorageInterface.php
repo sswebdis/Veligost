@@ -23,6 +23,7 @@
 
 namespace Veligost\SessionStorage;
 
+//@codeCoverageIgnoreStart
 /**
  * Интерфейс хранилища сессий
  *
@@ -54,3 +55,4 @@ interface SessionStorageInterface
      */
     public function closeSession($id);
 }
+//@codeCoverageIgnoreEnd

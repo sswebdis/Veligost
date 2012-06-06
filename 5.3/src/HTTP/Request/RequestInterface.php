@@ -23,6 +23,7 @@
 
 namespace Veligost\HTTP\Request;
 
+//@codeCoverageIgnoreStart
 /**
  * Интерфейс запроса HTTP
  *
@@ -76,3 +77,4 @@ interface RequestInterface
      */
     public function getUploadedContents($name);
 }
+//@codeCoverageIgnoreEnd
