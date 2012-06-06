@@ -21,22 +21,41 @@
  * limitations under the License.
  */
 
-namespace Veligost\Tests\SessionStorage;
+namespace Veligost\Tests;
 
-use Veligost\SessionStorage\Native;
+use Veligost\Response;
 
 /**
  *
  */
-class Native_Test extends \PHPUnit_Framework_TestCase
+class Response_Test extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Veligost\SessionStorage\Native::createSession
+     * @covers \Veligost\Response::__construct
+     * @covers \Veligost\Response::add
+     * @covers \Veligost\Response::send
      */
-    public function test_createSession()
+    public function test_success()
     {
-        $storage = new Native;
-        $sid = $storage->createSession();
+        $response = new Response();
+        $response->add('Foo');
+        $response->add('Bar');
+        $this->expectOutputString("success\nFoo\nBar");
+        $response->send();
     }
 
+    /**
+     * @covers \Veligost\Response::__construct
+     * @covers \Veligost\Response::setStatus
+     * @covers \Veligost\Response::add
+     * @covers \Veligost\Response::send
+     */
+    public function test_failure()
+    {
+        $response = new Response();
+        $response->setStatus(Response::FAILURE);
+        $response->add('Foo');
+        $this->expectOutputString("failure\nFoo");
+        $response->send();
+    }
 }
