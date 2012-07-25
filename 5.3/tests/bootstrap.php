@@ -29,6 +29,13 @@ namespace
     require_once _SRC_DIR . '/autoload.php';
 }
 
+namespace Veligost
+{
+    function header($header)
+    {
+    }
+}
+
 namespace Veligost\HTTP\Request
 {
     function ini_get($key)

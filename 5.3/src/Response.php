@@ -98,6 +98,7 @@ class Response
         array_unshift($this->messages, $this->status);
         $body = implode("\n", $this->messages);
         $this->messages = array();
+        header('Content-type: text/plain;charset=UTF-8');
         echo $body;
     }
 }
