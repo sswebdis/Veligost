@@ -31,12 +31,21 @@ use RuntimeException;
 class Native implements SessionStorageInterface
 {
     /**
+     * Имя куки, хранящего идентификатор сессии
+     * @var string
+     */
+    protected $sid;
+
+    /**
      * Конструктор
      *
      * Запускает механизм сессий
+     *
+     * @param string $sid  имя куки, хранящего идентификатор сессии
      */
-    public function __construct()
+    public function __construct($sid)
     {
+        $this->sid = $sid;
         $this->startSessions();
     }
 
@@ -81,6 +90,7 @@ class Native implements SessionStorageInterface
      */
     private function startSessions()
     {
+        session_name($this->sid);
         if (!session_start())
         {
             // Начиная с PHP 5.3 session_start возвращает false если сессии не инициализированы

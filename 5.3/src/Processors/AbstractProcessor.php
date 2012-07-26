@@ -106,7 +106,7 @@ abstract class AbstractProcessor
     {
         if (!$this->sessionStorage)
         {
-            $this->sessionStorage = new NativeSessionStorage;
+            $this->sessionStorage = new NativeSessionStorage($this->cookieName);
         }
         return $this->sessionStorage;
     }

@@ -39,9 +39,9 @@ class Native_Test extends \PHPUnit_Framework_TestCase
      */
     public function test_overall()
     {
-        $storage = new Native;
+        $storage = new Native('foo');
 
-        $this->assertFalse($storage->sessionExists('foo'));
+        $this->assertFalse($storage->sessionExists('bar'));
 
         $sid = $storage->createSession();
         $this->assertNotEmpty($sid);
@@ -59,7 +59,7 @@ class Native_Test extends \PHPUnit_Framework_TestCase
     public function test_createSession_failed()
     {
         $GLOBALS['session_start_fail'] = true;
-        $storage = new Native;
+        $storage = new Native('foo');
         $storage->createSession();
     }
 }
