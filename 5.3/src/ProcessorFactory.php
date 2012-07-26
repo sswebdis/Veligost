@@ -26,7 +26,8 @@ namespace Veligost;
 use Veligost\HTTP\Request\RequestInterface,
     Veligost\HTTP\Request\Native as NativeRequest,
     Veligost\Processors\BadRequestProcessor,
-    Veligost\Processors\CatalogProcessor;
+    Veligost\Processors\CatalogProcessor,
+    Veligost\Processors\SaleProcessor;
 
 /**
  * Процессор запросов 1С
@@ -51,6 +52,10 @@ class ProcessorFactory
         {
             case 'catalog':
                 $processor = new CatalogProcessor($request);
+                break;
+
+            case 'sale':
+                $processor = new SaleProcessor($request);
                 break;
 
             default:
