@@ -60,73 +60,16 @@ class Native_Test extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Veligost\HTTP\Request\Native::providesUploadedTempName
+     * @covers \Veligost\HTTP\Request\Native::getBody
      */
-    public function test_providesUploadedTempName()
+    public function test_getBody()
     {
         $req = new Native;
 
-        $this->assertTrue($req->providesUploadedTempName());
+        $GLOBALS['file_get_contents']['php://input'] = 'foo';
+        $this->assertEquals('foo', $req->getBody());
+
+        $GLOBALS['file_get_contents']['php://input'] = pack('CCC', 0xEF, 0xBB, 0xBF) . 'foo';
+        $this->assertEquals('foo', $req->getBody());
     }
-
-    /**
-     * @covers \Veligost\HTTP\Request\Native::getUploadedTempName
-     */
-    public function test_getUploadedTempName()
-    {
-        $req = new Native;
-
-        $_FILES['foo'] = array('tmp_name' => '/tmp/filename');
-        $this->assertEquals('/tmp/filename', $req->getUploadedTempName('foo'));
-        $this->assertNull($req->getUploadedTempName('bar'));
-    }
-
-    /**
-     * @covers \Veligost\HTTP\Request\Native::providesUploadedContents
-     */
-    public function test_providesUploadedContents()
-    {
-        $req = new Native;
-
-        \Veligost\HTTP\Request\ini_set('open_basedir', '');
-        $this->assertTrue($req->providesUploadedContents());
-
-        \Veligost\HTTP\Request\ini_set('open_basedir', '/tmp:/foo/');
-        \Veligost\HTTP\Request\ini_set('upload_tmp_dir', '');
-        $this->assertFalse($req->providesUploadedContents());
-
-        $GLOBALS['phpversion'] = '5.0.0';
-        \Veligost\HTTP\Request\ini_set('upload_tmp_dir', '/tmp');
-        $this->assertTrue($req->providesUploadedContents());
-        \Veligost\HTTP\Request\ini_set('upload_tmp_dir', '/tmp_dir');
-        $this->assertTrue($req->providesUploadedContents());
-        \Veligost\HTTP\Request\ini_set('upload_tmp_dir', '/foo');
-        $this->assertTrue($req->providesUploadedContents());
-
-        $GLOBALS['phpversion'] = '5.2.17';
-        \Veligost\HTTP\Request\ini_set('upload_tmp_dir', '/tmp');
-        $this->assertTrue($req->providesUploadedContents());
-        \Veligost\HTTP\Request\ini_set('upload_tmp_dir', '/tmp_dir');
-        $this->assertFalse($req->providesUploadedContents());
-        \Veligost\HTTP\Request\ini_set('upload_tmp_dir', '/foo/');
-        $this->assertTrue($req->providesUploadedContents());
-    }
-
-    /**
-     * @covers \Veligost\HTTP\Request\Native::getUploadedContents
-     */
-    public function test_getUploadedContents()
-    {
-        $req = new Native;
-
-        vfsStreamWrapper::register();
-        vfsStreamWrapper::setRoot(new vfsStreamDirectory('uploads'));
-        $filename = vfsStream::url('uploads/tmpFile');
-        file_put_contents($filename, 'foo');
-
-        $_FILES['bar'] = array('tmp_name' => $filename);
-        $this->assertEquals('foo', $req->getUploadedContents('bar'));
-        $this->assertNull($req->getUploadedContents('baz'));
-    }
-
 }

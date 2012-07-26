@@ -62,95 +62,19 @@ class Native implements RequestInterface
     }
 
     /**
-     * Возвращает true если реализация поддерживает получение временного имени загруженного файла
+     * Возвращает тело запроса
      *
-     * @return bool
+     * @return string
      */
-    public function providesUploadedTempName()
+    public function getBody()
     {
-        return true;
+        $body = file_get_contents('php://input');
+        $BOM = pack('CCC', 0xEF, 0xBB, 0xBF);
+        if (0 == strncmp($body, $BOM, 3))
+        {
+            $body = substr($body, 3);
+        }
+        return $body;
     }
 
-    /**
-     * Возвращает временное имя загруженного файла
-     *
-     * @param string  имя файла
-     *
-     * @return null|string  имя файла или null, если такой файл отсутствует
-     */
-    public function getUploadedTempName($name)
-    {
-        if (array_key_exists($name, $_FILES))
-        {
-            return $_FILES[$name]['tmp_name'];
-        }
-
-        return null;
-    }
-
-    /**
-     * Возвращает true если реализация поддерживает получение содержимого загруженного файла
-     *
-     * @return bool
-     */
-    public function providesUploadedContents()
-    {
-        $openBaseDir = ini_get('open_basedir');
-        if (!$openBaseDir)
-        {
-            return true;
-        }
-
-        $uploadTmpDir = ini_get('upload_tmp_dir');
-        if (!$uploadTmpDir)
-        {
-            /*
-             * Если параметр "upload_tmp_dir" не указан, используется какая-то системная папка.
-             * Т. к. PHP не даёт однозначного способа узнать путь к этой папке, то надёжнее
-             * сообщить, что чтение временных файлов не поддерживается.
-             */
-            return false;
-        }
-
-        // Является ли значение open_basedir префиксом пути или именем папки
-        $isFullName =
-            version_compare(phpversion(), '5.2.16', '>') &&
-            version_compare(phpversion(), '5.3.0', '<') ||
-            version_compare(phpversion(), '5.3.4', '>=');
-
-        $uploadTmpDir .= DIRECTORY_SEPARATOR;
-
-        $openBaseDir = explode(PATH_SEPARATOR, $openBaseDir);
-        foreach ($openBaseDir as $path)
-        {
-            if ($isFullName && substr($path, -1) != DIRECTORY_SEPARATOR)
-            {
-                $path .= DIRECTORY_SEPARATOR;
-            }
-
-            if (strpos($uploadTmpDir, $path) === 0)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Возвращает содержимое загруженного файла
-     *
-     * @param string  имя файла
-     *
-     * @return null|string  содержимое файла или null, если такой файл отсутствует
-     */
-    public function getUploadedContents($name)
-    {
-        if (array_key_exists($name, $_FILES))
-        {
-            return file_get_contents($_FILES[$name]['tmp_name']);
-        }
-
-        return null;
-    }
 }

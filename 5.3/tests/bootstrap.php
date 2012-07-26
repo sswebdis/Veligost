@@ -86,3 +86,15 @@ namespace Veligost\SessionStorage
         return false;
     }
 }
+
+namespace Veligost\HTTP\Request
+{
+    function file_get_contents($filename)
+    {
+        if (isset($GLOBALS['file_get_contents'][$filename]))
+        {
+            return $GLOBALS['file_get_contents'][$filename];
+        }
+        return false;
+    }
+}
