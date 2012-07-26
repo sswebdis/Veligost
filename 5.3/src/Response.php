@@ -41,44 +41,11 @@ class Response
     const FAILURE = 'failure';
 
     /**
-     * Тип ответа: успешно или ошибка
-     *
-     * @var string
-     */
-    protected $status;
-
-    /**
      * Сообщения
      *
      * @var array
      */
     protected $messages = array();
-
-    /**
-     * Конструктор
-     *
-     * @param string $status  сообщение об успехе или ошибке
-     */
-    public function __construct($status = self::SUCCESS)
-    {
-        $this->setStatus($status);
-    }
-
-    /**
-     *
-     * @param string $status
-     *
-     * @throws InvalidArgumentException
-     */
-    public function setStatus($status)
-    {
-        $statuses = array(self::SUCCESS, self::FAILURE);
-        if (!in_array($status, $statuses))
-        {
-            throw new InvalidArgumentException('Invalid status: ' . $status);
-        }
-        $this->status = $status;
-    }
 
     /**
      * Добавляет сообщение в ответ
@@ -95,7 +62,6 @@ class Response
      */
     public function send()
     {
-        array_unshift($this->messages, $this->status);
         $body = implode("\n", $this->messages);
         $this->messages = array();
         header('Content-type: text/plain;charset=UTF-8');

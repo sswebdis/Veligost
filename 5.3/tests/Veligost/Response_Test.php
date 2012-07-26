@@ -31,13 +31,13 @@ use Veligost\Response;
 class Response_Test extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Veligost\Response::__construct
      * @covers \Veligost\Response::add
      * @covers \Veligost\Response::send
      */
     public function test_success()
     {
         $response = new Response();
+        $response->add(Response::SUCCESS);
         $response->add('Foo');
         $response->add('Bar');
         $this->expectOutputString("success\nFoo\nBar");
@@ -45,27 +45,15 @@ class Response_Test extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Veligost\Response::__construct
-     * @covers \Veligost\Response::setStatus
      * @covers \Veligost\Response::add
      * @covers \Veligost\Response::send
      */
     public function test_failure()
     {
         $response = new Response();
-        $response->setStatus(Response::FAILURE);
+        $response->add(Response::FAILURE);
         $response->add('Foo');
         $this->expectOutputString("failure\nFoo");
         $response->send();
-    }
-
-    /**
-     * @covers \Veligost\Response::setStatus
-     * @expectedException InvalidArgumentException
-     */
-    public function test_setStatus_invalid()
-    {
-        $response = new Response();
-        $response->setStatus('foo');
     }
 }
