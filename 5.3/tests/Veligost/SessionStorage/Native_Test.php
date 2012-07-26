@@ -31,6 +31,8 @@ use Veligost\SessionStorage\Native;
 class Native_Test extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @covers \Veligost\SessionStorage\Native::__construct
+     * @covers \Veligost\SessionStorage\Native::startSessions
      * @covers \Veligost\SessionStorage\Native::createSession
      * @covers \Veligost\SessionStorage\Native::sessionExists
      * @covers \Veligost\SessionStorage\Native::closeSession
@@ -51,6 +53,7 @@ class Native_Test extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Veligost\SessionStorage\Native::createSession
+     * @covers \Veligost\SessionStorage\Native::startSessions
      * @expectedException RuntimeException
      */
     public function test_createSession_failed()

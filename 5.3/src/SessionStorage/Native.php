@@ -31,6 +31,16 @@ use RuntimeException;
 class Native implements SessionStorageInterface
 {
     /**
+     * Конструктор
+     *
+     * Запускает механизм сессий
+     */
+    public function __construct()
+    {
+        $this->startSessions();
+    }
+
+    /**
      * Создаёт новую сессию и возвращает её ключ
      *
      * @throws RuntimeException
@@ -39,11 +49,8 @@ class Native implements SessionStorageInterface
      */
     public function createSession()
     {
-        if (!session_start())
-        {
-            // Начиная с PHP 5.3 session_start возвращает false если сессии не инициализированы
-            throw new RuntimeException(__CLASS__ .': session failed to start');
-        }
+        $this->closeSession('');
+        $this->startSessions();
         return session_id();
     }
 
@@ -67,6 +74,18 @@ class Native implements SessionStorageInterface
     public function closeSession($id)
     {
         session_destroy();
+    }
+
+    /**
+     * Запускает механизм сессий
+     */
+    private function startSessions()
+    {
+        if (!session_start())
+        {
+            // Начиная с PHP 5.3 session_start возвращает false если сессии не инициализированы
+            throw new RuntimeException(__CLASS__ .': session failed to start');
+        }
     }
     //@codeCoverageIgnoreStart
 }
