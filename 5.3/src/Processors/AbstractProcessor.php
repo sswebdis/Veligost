@@ -136,6 +136,7 @@ abstract class AbstractProcessor
     protected function actionCheckAuth()
     {
         $sessionStorage = $this->getSessionStorage();
+        $this->response->add(Response::SUCCESS);
         $this->response->add($this->cookieName);
         $this->response->add($sessionStorage->createSession());
     }

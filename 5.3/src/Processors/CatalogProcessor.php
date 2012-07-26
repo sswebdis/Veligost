@@ -23,6 +23,8 @@
 
 namespace Veligost\Processors;
 
+use Veligost\Response;
+
 /**
  * Процессор выгрузки каталогов продукции
  */
@@ -35,7 +37,7 @@ class CatalogProcessor extends AbstractProcessor
     {
         if (!$this->request->getArg('filename'))
         {
-            $this->response->add($this->response::FAILURE);
+            $this->response->add(Response::FAILURE);
             $this->response->add('Неправильный запрос: отсутствует параметр «filename»');
             return;
         }
