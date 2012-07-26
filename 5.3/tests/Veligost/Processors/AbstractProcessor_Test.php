@@ -122,4 +122,30 @@ class AbstractProcessor_Test extends \PHPUnit_Framework_TestCase
 
         $processor->process();
     }
+
+    /**
+     * @covers \Veligost\Processors\AbstractProcessor::checkSession
+     */
+    public function test_checkSession()
+    {
+        $storage = $this->getMock('stdClass', array('sessionExists'));
+        $storage->expects($this->exactly(2))->method('sessionExists')->with('cookie')->
+            will($this->returnCallback(function () { static $r = false; return ($r = !$r); }));
+
+        $request = $this->getMock('\Veligost\HTTP\Request\Native', array('getCookie'));
+        $request->expects($this->any())->method('getCookie')->will($this->returnValue('cookie'));
+
+        $processor = $this->getMockBuilder('\Veligost\Processors\AbstractProcessor')->
+            setConstructorArgs(array($request))->setMethods(array('getSessionStorage'))->
+            getMock();
+        $processor->expects($this->any())->method('getSessionStorage')->
+            will($this->returnValue($storage));
+
+        $m_checkSession = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
+            'checkSession');
+        $m_checkSession->setAccessible(true);
+
+        $this->assertTrue($m_checkSession->invoke($processor));
+        $this->assertFalse($m_checkSession->invoke($processor));
+    }
 }
