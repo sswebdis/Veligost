@@ -23,8 +23,6 @@
 
 namespace Veligost\Processors;
 
-use Veligost\Response;
-
 /**
  * Процессор неправильных запросов
  */
@@ -35,7 +33,7 @@ class BadRequestProcessor extends AbstractProcessor
      */
     public function process()
     {
-        $this->response->setStatus(Response::FAILURE);
+        $this->response->add($this->response::FAILURE);
         $this->response->add('Неправильный запрос от 1С');
         $this->response->send();
     }

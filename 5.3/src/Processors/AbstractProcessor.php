@@ -86,7 +86,7 @@ abstract class AbstractProcessor
             }
             else
             {
-                $this->response->setStatus(Response::FAILURE);
+                $this->response->add(Response::FAILURE);
                 $this->response->add('Invalid request');
             }
         }
@@ -125,7 +125,7 @@ abstract class AbstractProcessor
             return true;
         }
 
-        $this->response->setStatus(Response::FAILURE);
+        $this->response->add(Response::FAILURE);
         $this->response->add('Invalid session cookie');
         return false;
     }
