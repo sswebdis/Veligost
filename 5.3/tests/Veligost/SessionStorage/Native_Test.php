@@ -32,12 +32,31 @@ class Native_Test extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Veligost\SessionStorage\Native::createSession
+     * @covers \Veligost\SessionStorage\Native::sessionExists
+     * @covers \Veligost\SessionStorage\Native::closeSession
      */
-    public function test_createSession()
+    public function test_overall()
     {
         $storage = new Native;
+
+        $this->assertFalse($storage->sessionExists('foo'));
+
         $sid = $storage->createSession();
         $this->assertNotEmpty($sid);
+        $this->assertTrue($storage->sessionExists($sid));
+
+        $storage->closeSession($sid);
+        $this->assertFalse($storage->sessionExists($sid));
     }
 
+    /**
+     * @covers \Veligost\SessionStorage\Native::createSession
+     * @expectedException RuntimeException
+     */
+    public function test_createSession_failed()
+    {
+        $GLOBALS['session_start_fail'] = true;
+        $storage = new Native;
+        $storage->createSession();
+    }
 }

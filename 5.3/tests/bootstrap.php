@@ -62,11 +62,27 @@ namespace Veligost\SessionStorage
 {
     function session_start()
     {
-        $GLOBALS['session_id'] = uniqid();
+        if (isset($GLOBALS['session_start_fail']))
+        {
+            unset($GLOBALS['session_start_fail']);
+            return false;
+        }
+        $GLOBALS['session_id'] = md5(uniqid());
+        return true;
     }
 
     function session_id()
     {
-        return $GLOBALS['session_id'];
+        return isset($GLOBALS['session_id']) ? $GLOBALS['session_id'] : '';
+    }
+
+    function session_destroy()
+    {
+        if (isset($GLOBALS['session_id']))
+        {
+            unset($GLOBALS['session_id']);
+            return true;
+        }
+        return false;
     }
 }

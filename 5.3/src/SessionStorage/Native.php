@@ -23,6 +23,8 @@
 
 namespace Veligost\SessionStorage;
 
+use RuntimeException;
+
 /**
  * Хранилище сессий на основе встроенного механизма сессий PHP
  */
@@ -31,11 +33,17 @@ class Native implements  SessionStorageInterface
     /**
      * Создаёт новую сессию и возвращает её ключ
      *
+     * @throws RuntimeException
+     *
      * @return string
      */
     public function createSession()
     {
-        session_start();
+        if (!session_start())
+        {
+            // Начиная с PHP 5.3 session_start возвращает false если сессии не инициализированы
+            throw new RuntimeException(__CLASS__ .': session failed to start');
+        }
         return session_id();
     }
 
@@ -48,7 +56,7 @@ class Native implements  SessionStorageInterface
      */
     public function sessionExists($id)
     {
-        return true;
+        return session_id() == $id;
     }
 
     /**
@@ -58,5 +66,8 @@ class Native implements  SessionStorageInterface
      */
     public function closeSession($id)
     {
+        session_destroy();
     }
+    //@codeCoverageIgnoreStart
 }
+//@codeCoverageIgnoreEnd
