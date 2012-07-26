@@ -55,35 +55,10 @@ interface RequestInterface
     public function getCookie($name);
 
     /**
-     * Возвращает true если реализация поддерживает получение временного имени загруженного файла
-     *
-     * @return bool
-     */
-    public function providesUploadedTempName();
-
-    /**
-     * Возвращает временное имя загруженного файла
-     *
-     * @param string  имя файла
+     * Возвращает тело запроса
      *
      * @return string
      */
-    public function getUploadedTempName($name);
-
-    /**
-     * Возвращает true если реализация поддерживает получение содержимого загруженного файла
-     *
-     * @return bool
-     */
-    public function providesUploadedContents();
-
-    /**
-     * Возвращает содержимое загруженного файла
-     *
-     * @param string  имя файла
-     *
-     * @return string
-     */
-    public function getUploadedContents($name);
+    public function getBody();
 }
 //@codeCoverageIgnoreEnd
