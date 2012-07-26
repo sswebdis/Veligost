@@ -45,5 +45,13 @@ class ProcessorFactory_Test extends \PHPUnit_Framework_TestCase
 
         $processor = ProcessorFactory::create($request);
         $this->assertInstanceOf('\Veligost\Processors\CatalogProcessor', $processor);
+
+        $request = $this->getMock('\Veligost\HTTP\Request\Native', array('getArg'));
+        $request->expects($this->any())->method('getArg')->will($this->returnValueMap(array(
+            array('type', 'sale')
+        )));
+
+        $processor = ProcessorFactory::create($request);
+        $this->assertInstanceOf('\Veligost\Processors\SaleProcessor', $processor);
     }
 }
