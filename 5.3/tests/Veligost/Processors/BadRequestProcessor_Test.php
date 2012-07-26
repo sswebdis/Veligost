@@ -37,8 +37,7 @@ class BadRequestProcessor_Test extends \PHPUnit_Framework_TestCase
      */
     public function test_process()
     {
-        $response = $this->getMock('Veligost\Response', array('setStatus', 'send'));
-        $response->expects($this->once())->method('setStatus')->with(Response::FAILURE);
+        $response = $this->getMock('Veligost\Response', array('send'));
         $response->expects($this->once())->method('send');
 
         $p_response = new \ReflectionProperty('Veligost\Processors\BadRequestProcessor',

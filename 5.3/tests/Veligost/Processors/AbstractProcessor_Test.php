@@ -116,9 +116,8 @@ class AbstractProcessor_Test extends \PHPUnit_Framework_TestCase
             setConstructorArgs(array($req))->setMethods(array('checkSession'))->getMock();
         $processor->expects($this->once())->method('checkSession')->will($this->returnValue(true));
 
-        $response = $this->getMock('stdClass', array('send', 'setStatus', 'add'));
+        $response = $this->getMock('stdClass', array('send', 'add'));
         $response->expects($this->once())->method('send');
-        $response->expects($this->once())->method('setStatus')->with(\Veligost\Response::FAILURE);
         $p_response->setValue($processor, $response);
 
         $processor->process();
