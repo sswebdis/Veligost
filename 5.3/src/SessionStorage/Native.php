@@ -28,7 +28,7 @@ use RuntimeException;
 /**
  * Хранилище сессий на основе встроенного механизма сессий PHP
  */
-class Native implements  SessionStorageInterface
+class Native implements SessionStorageInterface
 {
     /**
      * Создаёт новую сессию и возвращает её ключ
