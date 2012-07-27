@@ -98,3 +98,15 @@ namespace Veligost\HTTP\Request
         return false;
     }
 }
+
+namespace Veligost\Processors
+{
+    function ini_get($key)
+    {
+        if (isset($GLOBALS['ini'][$key]))
+        {
+            return $GLOBALS['ini'][$key];
+        }
+        return null;
+    }
+}

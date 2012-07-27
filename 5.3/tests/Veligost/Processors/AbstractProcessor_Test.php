@@ -148,4 +148,68 @@ class AbstractProcessor_Test extends \PHPUnit_Framework_TestCase
         $this->assertTrue($m_checkSession->invoke($processor));
         $this->assertFalse($m_checkSession->invoke($processor));
     }
+
+    /**
+     * @covers \Veligost\Processors\AbstractProcessor::actionCheckAuth
+     */
+    public function test_actionCheckAuth()
+    {
+        $storage = $this->getMock('stdClass', array('createSession'));
+        $storage->expects($this->once())->method('createSession');
+
+        $processor = $this->getMockBuilder('\Veligost\Processors\AbstractProcessor')->
+            disableOriginalConstructor()->setMethods(array('getSessionStorage'))->getMock();
+        $processor->expects($this->any())->method('getSessionStorage')->
+            will($this->returnValue($storage));
+
+        $response = $this->getMock('stdClass', array('add'));
+        $response->expects($this->exactly(3))->method('add');
+
+        $p_response = new \ReflectionProperty('\Veligost\Processors\AbstractProcessor', 'response');
+        $p_response->setAccessible(true);
+        $p_response->setValue($processor, $response);
+
+        $m_actionCheckAuth = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
+            'actionCheckAuth');
+        $m_actionCheckAuth->setAccessible(true);
+
+        $m_actionCheckAuth->invoke($processor);
+    }
+
+    /**
+     * @covers \Veligost\Processors\AbstractProcessor::actionInit
+     */
+    public function test_actionInit()
+    {
+        $processor = $this->getMockBuilder('\Veligost\Processors\AbstractProcessor')->
+            disableOriginalConstructor()->setMethods(array())->getMock();
+
+        $p_response = new \ReflectionProperty('\Veligost\Processors\AbstractProcessor', 'response');
+        $p_response->setAccessible(true);
+
+        $m_actionInit = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
+            'actionInit');
+        $m_actionInit->setAccessible(true);
+
+        $GLOBALS['ini']['upload_max_filesize'] = '2K';
+        $response = $this->getMock('stdClass', array('add'));
+        $p_response->setValue($processor, $response);
+        $response->expects($this->exactly(2))->method('add')->
+            with($this->logicalOr('zip=no', 'file_limit=2048'));
+        $m_actionInit->invoke($processor);
+
+        $GLOBALS['ini']['upload_max_filesize'] = '3M';
+        $response = $this->getMock('stdClass', array('add'));
+        $p_response->setValue($processor, $response);
+        $response->expects($this->exactly(2))->method('add')->
+            with($this->logicalOr('zip=no', 'file_limit=3145728'));
+        $m_actionInit->invoke($processor);
+
+        $GLOBALS['ini']['upload_max_filesize'] = '4G';
+        $response = $this->getMock('stdClass', array('add'));
+        $p_response->setValue($processor, $response);
+        $response->expects($this->exactly(2))->method('add')->
+            with($this->logicalOr('zip=no', 'file_limit=4294967296'));
+        $m_actionInit->invoke($processor);
+    }
 }
