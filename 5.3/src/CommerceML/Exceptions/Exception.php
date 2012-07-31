@@ -1,6 +1,6 @@
 <?php
 /**
- * Стереотип «Message»
+ * Абстрактная исключительная ситуация при работе с документом CommerceML
  *
  * @copyright 2012 ООО «Два слона» http://dvaslona.ru/
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -21,11 +21,13 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\CommerceML\Exceptions;
+
+use Exception as PHPException;
 
 /**
- * Стереотип «Message»
+ * Абстрактная исключительная ситуация при работе с документом CommerceML
  */
-abstract class Message extends Component
+class Exception extends PHPException
 {
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Стереотип «Message»
+ * Тесты
  *
  * @copyright 2012 ООО «Два слона» http://dvaslona.ru/
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -21,11 +21,30 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\Tests\CommerceML;
+
+use Veligost\CommerceML\Document;
 
 /**
- * Стереотип «Message»
+ *
  */
-abstract class Message extends Component
+class Document_Test extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers \Veligost\CommerceML\Document::getClassifier
+     */
+    public function test_getClassifier()
+    {
+        $xml = new \DOMDocument;
+        $xml->load(__DIR__ . '/Document.fixtures/import_1.xml');
+
+        $doc = new Document($xml->firstChild);
+
+        $this->assertEquals('2.03', $doc->getVersion());
+
+        $classifier = $doc->getClassifier();
+        $this->assertInstanceOf('\Veligost\CommerceML\Classifier', $classifier);
+        $this->assertEquals('2aa4a73e-4962-11de-bf4f-000c7834463c', $classifier->getId());
+        $this->assertEquals('Классификатор (Каталог товаров)', $classifier->getTitle());
+    }
 }

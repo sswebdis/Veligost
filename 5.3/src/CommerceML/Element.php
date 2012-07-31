@@ -48,11 +48,17 @@ abstract class Element
     protected $element;
 
     /**
+     * @var Document
+     */
+    protected $doc;
+
+    /**
      * @param DOMElement $element
+     * @param Document   $doc
      *
      * @throws InvalidArgumentException
      */
-    public function __construct(DOMElement $element)
+    public function __construct(DOMElement $element, Document $doc = null)
     {
         if (null !== $this->nodeName && $element->nodeName != $this->nodeName)
         {
@@ -60,6 +66,7 @@ abstract class Element
                 'Ожидался узел "%s", но получен узел "%s"', $this->nodeName, $element->nodeName));
         }
         $this->element = $element;
+        $this->doc = $doc;
     }
 
     /**
