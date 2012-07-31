@@ -37,6 +37,11 @@ use Veligost\CommerceML\Exceptions\SchemaException;
 class Group extends Component
 {
     /**
+     * @var string
+     */
+    protected $nodeName = 'Группа';
+
+    /**
      * Возвращает идентификатор группы
      *
      * @throws Exceptions\SchemaException
