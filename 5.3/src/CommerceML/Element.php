@@ -23,7 +23,8 @@
 
 namespace Veligost\CommerceML;
 
-use DOMElement;
+use DOMElement,
+    InvalidArgumentException;
 
 /**
  * Узел документа
@@ -31,15 +32,33 @@ use DOMElement;
 abstract class Element
 {
     /**
+     * Имя узла
+     *
+     * Потомки могут указывать в этом свойстве имя узла, в этом случае в конструкторе будет
+     * проводиться проверка на соответствие имени передаваемого узла имени, заданному в этом
+     * свойстве.
+     *
+     * @var string|null
+     */
+    protected $nodeName = null;
+
+    /**
      * @var DOMElement
      */
     protected $element;
 
     /**
      * @param DOMElement $element
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct(DOMElement $element)
     {
+        if (null !== $this->nodeName && $element->nodeName != $this->nodeName)
+        {
+            throw new InvalidArgumentException(sprintf(
+                'Ожидался узел "%s", но получен узел "%s"', $this->nodeName, $element->nodeName));
+        }
         $this->element = $element;
     }
 

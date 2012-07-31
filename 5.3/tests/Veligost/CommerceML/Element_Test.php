@@ -30,6 +30,24 @@ class Element_Test extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Veligost\CommerceML\Element::__construct
+     * @expectedException InvalidArgumentException
+     */
+    public function test_construct()
+    {
+        $doc = new \DOMDocument();
+        $doc->loadXML('<a/>');
+
+        $p_nodeName = new \ReflectionProperty('\Veligost\CommerceML\Element', 'nodeName');
+        $p_nodeName->setAccessible(true);
+
+        $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Element',
+            array($doc->firstChild));
+        $p_nodeName->setValue($elem, 'b');
+        $elem->__construct($doc->firstChild);
+    }
+
+    /**
+     * @covers \Veligost\CommerceML\Element::__construct
      * @covers \Veligost\CommerceML\Element::getChildElement
      */
     public function test_getChildElement()
