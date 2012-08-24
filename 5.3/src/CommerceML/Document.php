@@ -27,7 +27,8 @@ use Veligost\CommerceML\Exceptions\SchemaException,
     Veligost\CommerceML\Cache\ElementRegistry,
     Veligost\CommerceML\Stereotypes\Component,
     DOMDocument,
-    DOMElement;
+    DOMElement,
+    DateTime;
 
 /**
  * Документ CommerceML
@@ -75,19 +76,21 @@ class Document extends Component
     }
 
     /**
-     * Возвращает классификатор или null
+     * Возвращает время создания
      *
-     * @throws Exceptions\SchemaException
+     * @return DateTime
+     */
+    public function getTimeCreated()
+    {
+        return new DateTime($this->element->getAttribute('ДатаФормирования'));
+    }
+    /**
+     * Возвращает классификатор или null
      *
      * @return Classifier|null
      */
     public function getClassifier()
     {
-        $value = $this->getChild('Классификатор', 'Classifier');
-        if (null === $value)
-        {
-            throw new SchemaException('Отсутствует Классификатор');
-        }
-        return $value;
+        return $this->getChild('Классификатор', 'Classifier');
     }
 }
