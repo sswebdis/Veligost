@@ -31,7 +31,7 @@ use Veligost\HTTP\Request\Native;
 /**
  *
  */
-class Native_Test extends \PHPUnit_Framework_TestCase
+class NativeTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Veligost\HTTP\Request\Native::getArg

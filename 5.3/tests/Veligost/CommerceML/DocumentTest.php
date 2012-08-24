@@ -28,7 +28,7 @@ use Veligost\CommerceML\Document;
 /**
  *
  */
-class Document_Test extends \PHPUnit_Framework_TestCase
+class DocumentTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Veligost\CommerceML\Document::getClassifier

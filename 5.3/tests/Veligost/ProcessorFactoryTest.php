@@ -28,7 +28,7 @@ use Veligost\ProcessorFactory;
 /**
  *
  */
-class ProcessorFactory_Test extends \PHPUnit_Framework_TestCase
+class ProcessorFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Veligost\ProcessorFactory::create

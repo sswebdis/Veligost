@@ -12,7 +12,7 @@
 
     <testsuites>
         <testsuite name="Veligost">
-            <directory suffix="_Test.php">.</directory>
+            <directory suffix="Test.php">.</directory>
         </testsuite>
     </testsuites>
 

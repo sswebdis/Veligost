@@ -21,30 +21,32 @@
  * limitations under the License.
  */
 
-namespace Veligost\Tests\CommerceML;
+namespace Veligost\Tests\Processors;
+
+use Veligost\Processors\BadRequestProcessor,
+    Veligost\HTTP\Request\Native,
+    Veligost\Response;
 
 /**
  *
  */
-class Component_Test extends \PHPUnit_Framework_TestCase
+class BadRequestProcessorTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Veligost\CommerceML\Stereotypes\Component::getChild
+     * @covers \Veligost\Processors\BadRequestProcessor::process
      */
-    public function test_getChild()
+    public function test_process()
     {
-        $m_getChild = new \ReflectionMethod('\Veligost\CommerceML\Stereotypes\Component',
-            'getChild');
-        $m_getChild->setAccessible(true);
+        $response = $this->getMock('Veligost\Response', array('send'));
+        $response->expects($this->once())->method('send');
 
-        $doc = new \DOMDocument();
-        $doc->loadXML('<a><Ид>123465</Ид></a>');
+        $p_response = new \ReflectionProperty('Veligost\Processors\BadRequestProcessor',
+            'response');
+        $p_response->setAccessible(true);
 
-        $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Stereotypes\Component',
-            array($doc->firstChild));
+        $processor = new BadRequestProcessor(new Native());
+        $p_response->setValue($processor, $response);
 
-        $node = $m_getChild->invoke($elem, 'Ид', 'DataTypes\Id');
-        $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $node);
-        $this->assertSame($node, $m_getChild->invoke($elem, 'Ид', 'Id'));
+        $processor->process();
     }
 }

@@ -21,39 +21,25 @@
  * limitations under the License.
  */
 
-namespace Veligost\Tests;
-
-use Veligost\Response;
+namespace Veligost\Tests\CommerceML;
 
 /**
  *
  */
-class Response_Test extends \PHPUnit_Framework_TestCase
+class SimpleElementTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Veligost\Response::add
-     * @covers \Veligost\Response::send
+     * @covers \Veligost\CommerceML\Base\SimpleElement::__construct
+     * @covers \Veligost\CommerceML\Base\SimpleElement::__toString
      */
-    public function test_success()
+    public function test_toString()
     {
-        $response = new Response();
-        $response->add(Response::SUCCESS);
-        $response->add('Foo');
-        $response->add('Bar');
-        $this->expectOutputString("success\nFoo\nBar");
-        $response->send();
-    }
+        $doc = new \DOMDocument();
+        $doc->loadXML('<a>foo</a>');
 
-    /**
-     * @covers \Veligost\Response::add
-     * @covers \Veligost\Response::send
-     */
-    public function test_failure()
-    {
-        $response = new Response();
-        $response->add(Response::FAILURE);
-        $response->add('Foo');
-        $this->expectOutputString("failure\nFoo");
-        $response->send();
+        $elem = $this->getMockBuilder('\Veligost\CommerceML\Base\SimpleElement')->
+            setConstructorArgs(array($doc->firstChild))->setMethods(array('_'))->getMock();
+
+        $this->assertEquals('foo', strval($elem));
     }
 }

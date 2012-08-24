@@ -26,7 +26,7 @@ namespace Veligost\Tests\CommerceML;
 /**
  *
  */
-class Element_Test extends \PHPUnit_Framework_TestCase
+class ElementTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Veligost\CommerceML\Base\Element::__construct

@@ -89,4 +89,6 @@ abstract class Element
         }
         return null;
     }
+    //@codeCoverageIgnoreStart
 }
+//@codeCoverageIgnoreEnd

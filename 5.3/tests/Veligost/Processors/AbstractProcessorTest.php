@@ -29,7 +29,7 @@ use Veligost\Processors\AbstractProcessor,
 /**
  *
  */
-class AbstractProcessor_Test extends \PHPUnit_Framework_TestCase
+class AbstractProcessorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Veligost\Processors\AbstractProcessor::__construct

@@ -28,7 +28,7 @@ use Veligost\CommerceML\Group;
 /**
  *
  */
-class Group_Test extends \PHPUnit_Framework_TestCase
+class GroupTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Veligost\CommerceML\Group::getId
