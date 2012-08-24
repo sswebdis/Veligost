@@ -23,6 +23,8 @@
 
 namespace Veligost\Tests\CommerceML;
 
+use Veligost\CommerceML\Document;
+
 /**
  *
  */
@@ -37,11 +39,12 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
             'getChild');
         $m_getChild->setAccessible(true);
 
-        $doc = new \DOMDocument();
-        $doc->loadXML('<a><Ид>123465</Ид></a>');
+        $xml = new \DOMDocument();
+        $xml->loadXML('<КоммерческаяИнформация><Ид>123465</Ид></КоммерческаяИнформация>');
+        $doc = new Document($xml->firstChild);
 
         $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Stereotypes\Component',
-            array($doc->firstChild));
+            array($xml->firstChild, $doc));
 
         $node = $m_getChild->invoke($elem, 'Ид', 'DataTypes\Id');
         $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $node);
