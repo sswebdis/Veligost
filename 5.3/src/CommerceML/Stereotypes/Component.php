@@ -50,20 +50,23 @@ abstract class Component extends Element
      */
     protected function getChild($nodeName, $className)
     {
-        if (!array_key_exists($nodeName, $this->nodeCache))
+        $node = $this->getChildElement($nodeName);
+        if (null === $node)
         {
-            $node = $this->getChildElement($nodeName);
-            if (null !== $node)
-            {
-                $className = '\Veligost\CommerceML\\' . $className;
-                $this->nodeCache[$nodeName] = new $className($node);
-            }
-            else
-            {
-                $this->nodeCache[$nodeName] = null;
-            }
+            return null;
         }
-        return $this->nodeCache[$nodeName];
+
+        $registry = $this->doc->getRegistry();
+        $element = $registry->get($node);
+
+        if (null === $element)
+        {
+            $className = '\Veligost\CommerceML\\' . $className;
+            $element = new $className($node, $this->doc);
+            $registry->register($element);
+        }
+
+        return $element;
     }
     //@codeCoverageIgnoreStart
 }
