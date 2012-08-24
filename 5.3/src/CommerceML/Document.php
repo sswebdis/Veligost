@@ -24,8 +24,10 @@
 namespace Veligost\CommerceML;
 
 use Veligost\CommerceML\Exceptions\SchemaException,
+    Veligost\CommerceML\Cache\ElementRegistry,
     Veligost\CommerceML\Stereotypes\Component,
-    DOMDocument;
+    DOMDocument,
+    DOMElement;
 
 /**
  * Документ CommerceML
@@ -36,6 +38,31 @@ class Document extends Component
      * @var string
      */
     protected $nodeName = 'КоммерческаяИнформация';
+
+    /**
+     * @var Cache\ElementRegistry
+     */
+    protected $registry;
+
+    /**
+     * @param DOMElement $element
+     * @param Document $doc
+     */
+    public function __construct(DOMElement $element, Document $doc = null)
+    {
+        parent::__construct($element, $this);
+        $this->registry = new ElementRegistry();
+    }
+
+    /**
+     * Возвращает реестр элементов
+     *
+     * @return Cache\ElementRegistry
+     */
+    public function getRegistry()
+    {
+        return $this->registry;
+    }
 
     /**
      * Возвращает версию схемы
