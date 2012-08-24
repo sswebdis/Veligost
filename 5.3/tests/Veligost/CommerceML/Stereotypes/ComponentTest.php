@@ -46,5 +46,8 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
         $node = $m_getChild->invoke($elem, 'Ид', 'DataTypes\Id');
         $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $node);
         $this->assertSame($node, $m_getChild->invoke($elem, 'Ид', 'Id'));
+
+        $node = $m_getChild->invoke($elem, 'Наименование', 'DataTypes\Title');
+        $this->assertNull($node);
     }
 }

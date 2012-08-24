@@ -65,4 +65,6 @@ abstract class Component extends Element
         }
         return $this->nodeCache[$nodeName];
     }
+    //@codeCoverageIgnoreStart
 }
+//@codeCoverageIgnoreEnd

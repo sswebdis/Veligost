@@ -38,4 +38,6 @@ abstract class SimpleElement extends Element
     {
         return $this->element->textContent;
     }
+    //@codeCoverageIgnoreStart
 }
+//@codeCoverageIgnoreEnd
