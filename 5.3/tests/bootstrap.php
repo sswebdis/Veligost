@@ -110,3 +110,11 @@ namespace Veligost\Processors
         return null;
     }
 }
+
+namespace Veligost\FileStorage
+{
+    function realpath($path)
+    {
+        return $path;
+    }
+}
