@@ -71,6 +71,16 @@ abstract class Element
     }
 
     /**
+     * Возвращает элемент DOM
+     *
+     * @return \DOMElement
+     */
+    public function getDOMElement()
+    {
+        return $this->element;
+    }
+
+    /**
      * Возвращает первый дочерний элемент с указанным именем или null, если такого нет
      *
      * @param string $name
@@ -79,7 +89,7 @@ abstract class Element
      */
     protected function getChildElement($name)
     {
-        foreach ($this->element->childNodes as $node)
+        foreach ($this->getDOMElement()->childNodes as $node)
         {
             /** @var \DOMElement $node */
             if ($node->nodeName == $name)

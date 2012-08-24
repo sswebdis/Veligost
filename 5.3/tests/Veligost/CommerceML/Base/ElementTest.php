@@ -40,6 +40,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $p_nodeName = new \ReflectionProperty('\Veligost\CommerceML\Base\Element', 'nodeName');
         $p_nodeName->setAccessible(true);
 
+        /** @var \Veligost\CommerceML\Base\Element $elem */
         $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Base\Element',
             array($doc->firstChild));
         $p_nodeName->setValue($elem, 'b');
@@ -48,6 +49,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \Veligost\CommerceML\Base\Element::__construct
+     * @covers \Veligost\CommerceML\Base\Element::getDOMElement
      * @covers \Veligost\CommerceML\Base\Element::getChildElement
      */
     public function test_getChildElement()
