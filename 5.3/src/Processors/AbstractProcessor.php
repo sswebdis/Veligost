@@ -101,6 +101,8 @@ abstract class AbstractProcessor
             throw new InvalidArgumentException(
                 '$handler must implement ' . $validInterface);
         }
+
+        $this->handler = $handler;
     }
 
     /**
