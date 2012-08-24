@@ -23,7 +23,8 @@
 
 namespace Veligost\Tests\CommerceML;
 
-use Veligost\CommerceML\Group;
+use Veligost\CommerceML\Group,
+    Veligost\CommerceML\Document;
 
 /**
  *
@@ -37,12 +38,13 @@ class GroupTest extends \PHPUnit_Framework_TestCase
      */
     public function test_overall()
     {
-        $doc = new \DOMDocument();
-        $doc->loadXML('<Группа><Ид>8cd47d90-89a2-11df-a810-00241da98595</Ид>' .
+        $xml = new \DOMDocument();
+        $xml->loadXML('<КоммерческаяИнформация>' .
+            '<Группа><Ид>8cd47d90-89a2-11df-a810-00241da98595</Ид>' .
             '<Наименование>Основные средства</Наименование>' .
-            '<Описание>Основные средства</Описание></Группа>');
-
-        $group = new Group($doc->firstChild);
+            '<Описание>Основные средства</Описание></Группа></КоммерческаяИнформация>');
+        $doc = new Document($xml->firstChild);
+        $group = new Group($xml->firstChild->firstChild, $doc);
 
         $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $group->getId());
         $this->assertEquals('8cd47d90-89a2-11df-a810-00241da98595', $group->getId());
