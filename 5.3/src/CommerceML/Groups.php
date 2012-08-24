@@ -42,4 +42,9 @@ class Groups extends ElementGroup
      * @var string
      */
     protected $childNodeName = 'Группа';
+
+    /**
+     * @var string
+     */
+    protected $childClassName = 'Group';
 }
