@@ -1,6 +1,6 @@
 <?php
 /**
- * Простой элемент
+ * Стереотип «Identifier»
  *
  * @copyright 2012 ООО «Два слона» http://dvaslona.ru/
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -21,21 +21,13 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\CommerceML\Stereotypes;
+
+use Veligost\CommerceML\Base\SimpleElement;
 
 /**
- * Простой элемент
- *
- * Простые элементы не имеют атрибутов и содержат только текст, а потому может быть представлен
- * в виде строки.
+ * Стереотип «Identifier»
  */
-abstract class SimpleElement extends Element
+abstract class Identifier extends SimpleElement
 {
-    /**
-     * Возвращает строковое представление элемента
-     */
-    public function __toString()
-    {
-        return $this->element->textContent;
-    }
 }

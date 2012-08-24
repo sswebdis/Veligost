@@ -1,6 +1,6 @@
 <?php
 /**
- * Стереотип «Message»
+ * Наименование
  *
  * @copyright 2012 ООО «Два слона» http://dvaslona.ru/
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -21,11 +21,16 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\CommerceML\DataTypes;
+
+use Veligost\CommerceML\Stereotypes\Text;
 
 /**
- * Стереотип «Message»
+ * Наименование
+ *
+ * Наименование контрагента, описание товара (изделия) и дополнительная информация при ее
+ * наличии.
  */
-abstract class Message extends Component
+class Title extends Text
 {
 }

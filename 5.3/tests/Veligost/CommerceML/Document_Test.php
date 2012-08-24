@@ -46,5 +46,7 @@ class Document_Test extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Veligost\CommerceML\Classifier', $classifier);
         $this->assertEquals('2aa4a73e-4962-11de-bf4f-000c7834463c', $classifier->getId());
         $this->assertEquals('Классификатор (Каталог товаров)', $classifier->getTitle());
+
+       //$groups = $classifier->getGroups();
     }
 }

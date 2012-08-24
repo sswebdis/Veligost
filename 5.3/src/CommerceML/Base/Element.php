@@ -21,10 +21,11 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\CommerceML\Base;
 
 use DOMElement,
-    InvalidArgumentException;
+    InvalidArgumentException,
+    Veligost\CommerceML\Document;
 
 /**
  * Узел документа

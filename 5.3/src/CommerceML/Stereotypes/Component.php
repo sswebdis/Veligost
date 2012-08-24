@@ -21,7 +21,9 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\CommerceML\Stereotypes;
+
+use Veligost\CommerceML\Base\Element;
 
 /**
  * Стереотип «Компонент»

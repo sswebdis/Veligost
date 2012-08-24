@@ -1,6 +1,6 @@
 <?php
 /**
- * Процессор обмена заказами
+ * Простой элемент
  *
  * @copyright 2012 ООО «Два слона» http://dvaslona.ru/
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -21,21 +21,21 @@
  * limitations under the License.
  */
 
-namespace Veligost\Processors;
-
-use Veligost\Response;
+namespace Veligost\CommerceML\Base;
 
 /**
- * Процессор обмена заказами
+ * Простой элемент
+ *
+ * Простые элементы не имеют атрибутов и содержат только текст, а потому может быть представлен
+ * в виде строки.
  */
-class SaleProcessor extends AbstractProcessor
+abstract class SimpleElement extends Element
 {
     /**
-     * Получение файла обмена с сайта
+     * Возвращает строковое представление элемента
      */
-    protected function actionQuery()
+    public function __toString()
     {
-        // TODO
-        $this->response->add(Response::SUCCESS);
+        return $this->element->textContent;
     }
 }

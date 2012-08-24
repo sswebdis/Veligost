@@ -44,13 +44,13 @@ class Group_Test extends \PHPUnit_Framework_TestCase
 
         $group = new Group($doc->firstChild);
 
-        $this->assertInstanceOf('\Veligost\CommerceML\Id', $group->getId());
+        $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $group->getId());
         $this->assertEquals('8cd47d90-89a2-11df-a810-00241da98595', $group->getId());
 
-        $this->assertInstanceOf('\Veligost\CommerceML\Id', $group->getId());
+        $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $group->getId());
         $this->assertEquals('Основные средства', $group->getTitle());
 
-        $this->assertInstanceOf('\Veligost\CommerceML\Id', $group->getId());
+        $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $group->getId());
         $this->assertEquals('Основные средства', $group->getComment());
     }
 }

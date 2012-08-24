@@ -35,11 +35,34 @@ class CatalogProcessor extends AbstractProcessor
      */
     protected function actionFile()
     {
-        if (!$this->request->getArg('filename'))
+        $filename = $this->request->getArg('filename');
+        if ($filename)
+        {
+            file_put_contents('/tmp/' . $filename, $this->request->getBody());
+            $this->response->add(Response::SUCCESS);
+        }
+        else
         {
             $this->response->add(Response::FAILURE);
             $this->response->add('Неправильный запрос: отсутствует параметр «filename»');
-            return;
+        }
+    }
+
+    /**
+     * Пошаговая загрузка каталога
+     */
+    protected function actionImport()
+    {
+        $filename = $this->request->getArg('filename');
+        if ($filename)
+        {
+            // TODO
+            $this->response->add(Response::SUCCESS);
+        }
+        else
+        {
+            $this->response->add(Response::FAILURE);
+            $this->response->add('Неправильный запрос: отсутствует параметр «filename»');
         }
     }
 }

@@ -24,6 +24,7 @@
 namespace Veligost\CommerceML;
 
 use Veligost\CommerceML\Exceptions\SchemaException,
+    Veligost\CommerceML\Stereotypes\Component,
     DOMDocument;
 
 /**

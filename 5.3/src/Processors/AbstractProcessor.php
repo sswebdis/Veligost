@@ -23,10 +23,12 @@
 
 namespace Veligost\Processors;
 
-use Veligost\HTTP\Request\RequestInterface,
+use InvalidArgumentException,
+    Veligost\HTTP\Request\RequestInterface,
     Veligost\SessionStorage\SessionStorageInterface,
     Veligost\SessionStorage\Native as NativeSessionStorage,
-    Veligost\Response;
+    Veligost\Response,
+    Veligost\Interfaces\CatalogHandler;
 
 /**
  * Абстрактный процессор запросов 1С
@@ -58,6 +60,13 @@ abstract class AbstractProcessor
     protected $response;
 
     /**
+     * Обработчик запроса
+     *
+     * @var CatalogHandler
+     */
+    protected $handler;
+
+    /**
      * Конструктор процессора
      *
      * @param RequestInterface $request
@@ -66,6 +75,32 @@ abstract class AbstractProcessor
     {
        $this->request = $request;
        $this->response = new Response();
+    }
+
+    /**
+     * Устанавливает обработчик запроса
+     *
+     * @param CatalogHandler $handler
+     *
+     * @throws InvalidArgumentException
+     */
+    public function setHandler($handler)
+    {
+        if (!is_object($handler))
+        {
+            throw new InvalidArgumentException(
+                '$handler must be an object not a ' . gettype($handler));
+        }
+
+        $validInterface = get_class($this);
+        $validInterface = str_replace('Processors', 'Interfaces', $validInterface);
+        $validInterface = str_replace('Processor', 'Handler', $validInterface);
+
+        if (!($handler instanceof $validInterface))
+        {
+            throw new InvalidArgumentException(
+                '$handler must implement ' . $validInterface);
+        }
     }
 
     /**

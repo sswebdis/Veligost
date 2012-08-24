@@ -1,6 +1,6 @@
 <?php
 /**
- * Стереотип «Identifier»
+ * Стереотип «Message»
  *
  * @copyright 2012 ООО «Два слона» http://dvaslona.ru/
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -21,11 +21,11 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\CommerceML\Stereotypes;
 
 /**
- * Стереотип «Identifier»
+ * Стереотип «Message»
  */
-abstract class Identifier extends SimpleElement
+abstract class Message extends Component
 {
 }

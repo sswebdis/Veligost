@@ -23,7 +23,8 @@
 
 namespace Veligost\CommerceML;
 
-use Veligost\CommerceML\Exceptions\SchemaException;
+use Veligost\CommerceML\Stereotypes\Message,
+    Veligost\CommerceML\Exceptions\SchemaException;
 
 /**
  * Классификатор
@@ -42,11 +43,11 @@ class Classifier extends Message
      *
      * @throws Exceptions\SchemaException
      *
-     * @return Id
+     * @return DataTypes\Id
      */
     public function getId()
     {
-        $id = $this->getChild('Ид', 'Id');
+        $id = $this->getChild('Ид', 'DataTypes\Id');
         if (null === $id)
         {
             throw new SchemaException('У Классификатора отсутствует элемент Ид');
@@ -59,11 +60,11 @@ class Classifier extends Message
      *
      * @throws Exceptions\SchemaException
      *
-     * @return Title
+     * @return DataTypes\Title
      */
     public function getTitle()
     {
-        $title = $this->getChild('Наименование', 'Title');
+        $title = $this->getChild('Наименование', 'DataTypes\Title');
         if (null === $title)
         {
             throw new SchemaException('У Классификатора отсутствует элемент Наименование');
@@ -74,11 +75,11 @@ class Classifier extends Message
     /**
      * Возвращает описание
      *
-     * @return Comment|null
+     * @return DataTypes\Comment|null
      */
     public function getComment()
     {
-        return $this->getChild('Описание', 'Comment');
+        return $this->getChild('Описание', 'DataTypes\Comment');
     }
 
     /**

@@ -29,15 +29,15 @@ namespace Veligost\Tests\CommerceML;
 class SimpleElement_Test extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Veligost\CommerceML\SimpleElement::__construct
-     * @covers \Veligost\CommerceML\SimpleElement::__toString
+     * @covers \Veligost\CommerceML\Base\SimpleElement::__construct
+     * @covers \Veligost\CommerceML\Base\SimpleElement::__toString
      */
     public function test_toString()
     {
         $doc = new \DOMDocument();
         $doc->loadXML('<a>foo</a>');
 
-        $elem = $this->getMockBuilder('\Veligost\CommerceML\SimpleElement')->
+        $elem = $this->getMockBuilder('\Veligost\CommerceML\Base\SimpleElement')->
             setConstructorArgs(array($doc->firstChild))->setMethods(array('_'))->getMock();
 
         $this->assertEquals('foo', strval($elem));

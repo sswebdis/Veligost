@@ -29,7 +29,7 @@ namespace Veligost\Tests\CommerceML;
 class Element_Test extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Veligost\CommerceML\Element::__construct
+     * @covers \Veligost\CommerceML\Base\Element::__construct
      * @expectedException InvalidArgumentException
      */
     public function test_construct()
@@ -37,29 +37,29 @@ class Element_Test extends \PHPUnit_Framework_TestCase
         $doc = new \DOMDocument();
         $doc->loadXML('<a/>');
 
-        $p_nodeName = new \ReflectionProperty('\Veligost\CommerceML\Element', 'nodeName');
+        $p_nodeName = new \ReflectionProperty('\Veligost\CommerceML\Base\Element', 'nodeName');
         $p_nodeName->setAccessible(true);
 
-        $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Element',
+        $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Base\Element',
             array($doc->firstChild));
         $p_nodeName->setValue($elem, 'b');
         $elem->__construct($doc->firstChild);
     }
 
     /**
-     * @covers \Veligost\CommerceML\Element::__construct
-     * @covers \Veligost\CommerceML\Element::getChildElement
+     * @covers \Veligost\CommerceML\Base\Element::__construct
+     * @covers \Veligost\CommerceML\Base\Element::getChildElement
      */
     public function test_getChildElement()
     {
-        $m_getChildElement = new \ReflectionMethod('\Veligost\CommerceML\Element',
+        $m_getChildElement = new \ReflectionMethod('\Veligost\CommerceML\Base\Element',
             'getChildElement');
         $m_getChildElement->setAccessible(true);
 
         $doc = new \DOMDocument();
         $doc->loadXML('<a><b/></a>');
 
-        $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Element',
+        $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Base\Element',
             array($doc->firstChild));
 
         $this->assertInstanceOf('DOMElement', $m_getChildElement->invoke($elem, 'b'));

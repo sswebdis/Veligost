@@ -29,21 +29,22 @@ namespace Veligost\Tests\CommerceML;
 class Component_Test extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Veligost\CommerceML\Component::getChild
+     * @covers \Veligost\CommerceML\Stereotypes\Component::getChild
      */
     public function test_getChild()
     {
-        $m_getChild = new \ReflectionMethod('\Veligost\CommerceML\Component', 'getChild');
+        $m_getChild = new \ReflectionMethod('\Veligost\CommerceML\Stereotypes\Component',
+            'getChild');
         $m_getChild->setAccessible(true);
 
         $doc = new \DOMDocument();
         $doc->loadXML('<a><Ид>123465</Ид></a>');
 
-        $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Component',
+        $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Stereotypes\Component',
             array($doc->firstChild));
 
-        $node = $m_getChild->invoke($elem, 'Ид', 'Id');
-        $this->assertInstanceOf('\Veligost\CommerceML\Id', $node);
+        $node = $m_getChild->invoke($elem, 'Ид', 'DataTypes\Id');
+        $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $node);
         $this->assertSame($node, $m_getChild->invoke($elem, 'Ид', 'Id'));
     }
 }
