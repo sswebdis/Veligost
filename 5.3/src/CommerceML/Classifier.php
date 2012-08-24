@@ -82,13 +82,13 @@ class Classifier extends Message
         return $this->getChild('Описание', 'DataTypes\Comment');
     }
 
-    /**
+    /* *
      * Возвращает владельца
      *
      * @throws Exceptions\SchemaException
      *
      * @return Contractor
-     */
+     * /
     public function getContractor()
     {
         $title = $this->getChild('Контрагент', 'Contractor');
@@ -97,5 +97,18 @@ class Classifier extends Message
             throw new SchemaException('У Классификатора отсутствует элемент Контрагент');
         }
         return $title;
+    }*/
+
+    /**
+     * Возвращает группы
+     *
+     * @throws Exceptions\SchemaException
+     *
+     * @return Groups
+     */
+    public function getGroups()
+    {
+        $groups = $this->getChild('Группы', 'Groups');
+        return $groups;
     }
 }
