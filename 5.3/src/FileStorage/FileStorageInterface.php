@@ -48,9 +48,17 @@ interface FileStorageInterface
      * @param string $sid       идентификатор сессии
      * @param string $filename  имя файла
      *
-     * @return string
+     * @return string|bool  содержимое файла или false, если файл не существует
      */
     public function read($sid, $filename);
+
+    /**
+     * Удаляет файл
+     *
+     * @param string $sid       идентификатор сессии
+     * @param string $filename  имя файла
+     */
+    public function unlink($sid, $filename);
 
     /**
      * Удаляет все файлы сессии

@@ -24,7 +24,8 @@
 namespace Veligost\FileStorage;
 
 use FilesystemIterator,
-    RegexIterator;
+    RegexIterator,
+    InvalidArgumentException;
 
 /**
  * Хранилище файлов в папке
@@ -41,12 +42,18 @@ class Directory implements FileStorageInterface
      * Создаёт хранилище, размещающее файлы в указанной папке
      *
      * @param string $directory  полный путь к папке, где следует хранить файлы
+     *
+     * @throws InvalidArgumentException  если путь не существует или указана пустая строка
      */
     public function __construct($directory)
     {
         assert('is_string($directory)');
 
         $this->directory = realpath($directory);
+        if (!$this->directory)
+        {
+            throw new InvalidArgumentException('Invalid or empty directory path');
+        }
     }
 
     /**
@@ -81,6 +88,21 @@ class Directory implements FileStorageInterface
         else
         {
             return false;
+        }
+    }
+
+    /**
+     * Удаляет файл
+     *
+     * @param string $sid       идентификатор сессии
+     * @param string $filename  имя файла
+     */
+    public function unlink($sid, $filename)
+    {
+        $pathname = $this->createFilename($sid, $filename);
+        if (file_exists($pathname))
+        {
+            unlink($pathname);
         }
     }
 

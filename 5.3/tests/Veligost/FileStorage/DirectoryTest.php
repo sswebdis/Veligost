@@ -36,6 +36,7 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase
      * @covers \Veligost\FileStorage\Directory::__construct
      * @covers \Veligost\FileStorage\Directory::store
      * @covers \Veligost\FileStorage\Directory::read
+     * @covers \Veligost\FileStorage\Directory::unlink
      * @covers \Veligost\FileStorage\Directory::cleanup
      * @covers \Veligost\FileStorage\Directory::createFilename
      */
@@ -67,5 +68,17 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($storage->read('foo', 'offers.xml'));
         $this->assertEquals('<import_bar />', $storage->read('bar', 'import.xml'));
         $this->assertEquals('<offers_bar />', $storage->read('bar', 'offers.xml'));
+        $storage->unlink('bar', 'import.xml');
+        $this->assertFalse($storage->read('bar', 'import.xml'));
+        $this->assertEquals('<offers_bar />', $storage->read('bar', 'offers.xml'));
+    }
+
+    /**
+     * @covers \Veligost\FileStorage\Directory::__construct
+     * @expectedException InvalidArgumentException
+     */
+    public function test_emptyPath()
+    {
+        $storage = new Directory('');
     }
 }
