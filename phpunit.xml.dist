@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="bootstrap.php">
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">5.3/src</directory>
+            <exclude>
+                <file>5.3/src/autoload.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <testsuites>
+        <testsuite name="Veligost">
+            <directory suffix="Test.php">5.3/tests</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>
