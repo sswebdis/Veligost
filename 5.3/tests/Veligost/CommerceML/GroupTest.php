@@ -43,7 +43,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
             '<Группа><Ид>8cd47d90-89a2-11df-a810-00241da98595</Ид>' .
             '<Наименование>Основные средства</Наименование>' .
             '<Описание>Основные средства</Описание></Группа></КоммерческаяИнформация>');
-        $doc = new Document($xml->firstChild);
+        $doc = new Document($xml);
         $group = new Group($xml->firstChild->firstChild, $doc);
 
         $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $group->getId());

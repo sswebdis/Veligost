@@ -37,7 +37,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     {
         $xml = new \DOMDocument;
         $xml->load(__DIR__ . '/Document.fixtures/import_1.xml');
-        $doc = new Document($xml->firstChild);
+        $doc = new Document($xml);
 
         $this->assertEquals('2.03', $doc->getVersion());
     }
@@ -49,7 +49,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
     {
         $xml = new \DOMDocument;
         $xml->load(__DIR__ . '/Document.fixtures/import_1.xml');
-        $doc = new Document($xml->firstChild);
+        $doc = new Document($xml);
 
         $this->assertInstanceOf('DateTime', $doc->getTimeCreated());
     }
@@ -62,7 +62,7 @@ class DocumentTest extends \PHPUnit_Framework_TestCase
         $xml = new \DOMDocument;
         $xml->load(__DIR__ . '/Document.fixtures/import_1.xml');
 
-        $doc = new Document($xml->firstChild);
+        $doc = new Document($xml);
 
         $classifier = $doc->getClassifier();
         $this->assertInstanceOf('\Veligost\CommerceML\Classifier', $classifier);

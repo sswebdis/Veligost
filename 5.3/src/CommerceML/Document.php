@@ -46,12 +46,11 @@ class Document extends Component
     protected $registry;
 
     /**
-     * @param DOMElement $element
-     * @param Document $doc
+     * @param DOMDocument $xml
      */
-    public function __construct(DOMElement $element, Document $doc = null)
+    public function __construct(DOMDocument $xml)
     {
-        parent::__construct($element, $this);
+        parent::__construct($xml->firstChild, $this);
         $this->registry = new ElementRegistry();
     }
 

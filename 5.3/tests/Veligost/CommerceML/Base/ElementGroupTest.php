@@ -40,7 +40,7 @@ namespace Veligost\Tests\CommerceML
             $xml->loadXML('<КоммерческаяИнформация>' .
                 '<Группы><Группа /><a /><Группа /></Группы>' .
                 '</КоммерческаяИнформация>');
-            $doc = new Document($xml->firstChild);
+            $doc = new Document($xml);
 
             /** @var \Veligost\CommerceML\Base\ElementGroup $group */
             $group = $this->getMockForAbstractClass('\Veligost\CommerceML\Base\ElementGroup',

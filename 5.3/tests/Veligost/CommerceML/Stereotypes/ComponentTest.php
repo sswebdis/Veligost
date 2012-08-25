@@ -41,7 +41,7 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
 
         $xml = new \DOMDocument();
         $xml->loadXML('<КоммерческаяИнформация><Ид>123465</Ид></КоммерческаяИнформация>');
-        $doc = new Document($xml->firstChild);
+        $doc = new Document($xml);
 
         $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Stereotypes\Component',
             array($xml->firstChild, $doc));
