@@ -64,7 +64,7 @@ class CatalogProcessor extends AbstractProcessor
             if ($this->handler)
             {
                 $doc = new Document($xml->firstChild);
-                call_user_func(array($this->handler, 'import'), $doc);
+                $this->handler->import($doc);
             }
             $this->response->add(Response::SUCCESS);
         }
