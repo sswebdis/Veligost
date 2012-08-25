@@ -23,11 +23,56 @@
 
 namespace Veligost\CommerceML\Stereotypes;
 
+use Veligost\CommerceML\Exceptions\SchemaException;
+
 /**
  * Стереотип «Message»
  */
 abstract class Message extends Component
-//@codeCoverageIgnoreStart
 {
+    /**
+     * Возвращает идентификатор
+     *
+     * @throws SchemaException
+     *
+     * @return \Veligost\CommerceML\DataTypes\Id
+     */
+    public function getId()
+    {
+        $id = $this->getChild('Ид', 'DataTypes\Id');
+        if (null === $id)
+        {
+            throw new SchemaException('У узла ' . $this->nodeName . ' отсутствует элемент Ид');
+        }
+        return $id;
+    }
+
+    /**
+     * Возвращает наименование
+     *
+     * @throws Exceptions\SchemaException
+     *
+     * @return \Veligost\CommerceML\DataTypes\Title
+     */
+    public function getTitle()
+    {
+        $title = $this->getChild('Наименование', 'DataTypes\Title');
+        if (null === $title)
+        {
+            throw new SchemaException('У ' . $this->nodeName . ' отсутствует элемент Наименование');
+        }
+        return $title;
+    }
+
+    /**
+     * Возвращает описание
+     *
+     * @return \Veligost\CommerceML\DataTypes\Comment|null
+     */
+    public function getComment()
+    {
+        return $this->getChild('Описание', 'DataTypes\Comment');
+    }
+    //@codeCoverageIgnoreStart
 }
 //@codeCoverageIgnoreEnd
