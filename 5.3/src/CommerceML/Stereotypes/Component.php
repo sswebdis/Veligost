@@ -31,13 +31,6 @@ use Veligost\CommerceML\Base\Element;
 abstract class Component extends Element
 {
     /**
-     * Кэш объектов
-     *
-     * @var Element[]
-     */
-    private $nodeCache = array();
-
-    /**
      * Возвращает объект класса $className для дочернего узла с именем $nodeName
      *
      * При повторном обращении к тому же узлу, будет возвращён объект, созданный для этого узла
