@@ -67,4 +67,6 @@ class Response
         header('Content-type: text/plain;charset=UTF-8');
         echo $body;
     }
+    //@codeCoverageIgnoreStart
 }
+//@codeCoverageIgnoreEnd
