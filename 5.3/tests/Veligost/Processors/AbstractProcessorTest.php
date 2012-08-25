@@ -49,23 +49,6 @@ class AbstractProcessorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers \Veligost\Processors\AbstractProcessor::getSessionStorage
-     */
-    public function test_getSessionStorage()
-    {
-        $processor = $this->getMockForAbstractClass('\Veligost\Processors\AbstractProcessor',
-            array(new Native));
-
-        $m_getSessionStorage = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
-            'getSessionStorage');
-        $m_getSessionStorage->setAccessible(true);
-
-        $storage = $m_getSessionStorage->invoke($processor);
-        $this->assertInstanceOf('\Veligost\SessionStorage\Native', $storage);
-        $this->assertSame($storage, $m_getSessionStorage->invoke($processor));
-    }
-
-    /**
      * @covers \Veligost\Processors\AbstractProcessor::process
      */
     public function test_process()
@@ -124,29 +107,55 @@ class AbstractProcessorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers \Veligost\Processors\AbstractProcessor::initSession
+     */
+    public function test_initSession()
+    {
+        $request = $this->getMock('\Veligost\HTTP\Request\Native', array('getCookie'));
+        $request->expects($this->any())->method('getCookie')->will($this->returnValue('cookie'));
+
+        $processor = $this->getMockBuilder('\Veligost\Processors\AbstractProcessor')
+            ->setConstructorArgs(array($request))->getMock();
+
+        $initSession = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
+            'initSession');
+        $initSession->setAccessible(true);
+
+        $initSession->invoke($processor);
+
+        $sessionProperty = new \ReflectionProperty('\Veligost\Processors\AbstractProcessor',
+            'session');
+        $sessionProperty->setAccessible(true);
+
+        /** @var \Veligost\Session $session */
+        $session = $sessionProperty->getValue($processor);
+
+        $this->assertInstanceOf('\Veligost\Session', $session);
+        $this->assertEquals('cookie', $session->getId());
+    }
+
+    /**
      * @covers \Veligost\Processors\AbstractProcessor::checkSession
      */
     public function test_checkSession()
     {
-        $storage = $this->getMock('stdClass', array('sessionExists'));
-        $storage->expects($this->exactly(2))->method('sessionExists')->with('cookie')->
-            will($this->returnCallback(function () { static $r = false; return ($r = !$r); }));
+        $processor = $this->getMockBuilder('\Veligost\Processors\AbstractProcessor')
+            ->setConstructorArgs(array(new Native))->getMock();
 
-        $request = $this->getMock('\Veligost\HTTP\Request\Native', array('getCookie'));
-        $request->expects($this->any())->method('getCookie')->will($this->returnValue('cookie'));
+        $session = $this->getMock('stdClass', array('exists'));
+        $session->expects($this->exactly(2))->method('exists')
+            ->will($this->returnCallback(function () { static $r = false; return ($r = !$r); }));
+        $sessionProperty = new \ReflectionProperty('\Veligost\Processors\AbstractProcessor',
+            'session');
+        $sessionProperty->setAccessible(true);
+        $sessionProperty->setValue($processor, $session);
 
-        $processor = $this->getMockBuilder('\Veligost\Processors\AbstractProcessor')->
-            setConstructorArgs(array($request))->setMethods(array('getSessionStorage'))->
-            getMock();
-        $processor->expects($this->any())->method('getSessionStorage')->
-            will($this->returnValue($storage));
-
-        $m_checkSession = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
+        $checkSession = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
             'checkSession');
-        $m_checkSession->setAccessible(true);
+        $checkSession->setAccessible(true);
 
-        $this->assertTrue($m_checkSession->invoke($processor));
-        $this->assertFalse($m_checkSession->invoke($processor));
+        $this->assertTrue($checkSession->invoke($processor));
+        $this->assertFalse($checkSession->invoke($processor));
     }
 
     /**
@@ -154,26 +163,30 @@ class AbstractProcessorTest extends \PHPUnit_Framework_TestCase
      */
     public function test_actionCheckAuth()
     {
-        $storage = $this->getMock('stdClass', array('createSession'));
-        $storage->expects($this->once())->method('createSession');
+        $processor = $this->getMockBuilder('\Veligost\Processors\AbstractProcessor')
+            ->setConstructorArgs(array(new Native))->getMock();
 
-        $processor = $this->getMockBuilder('\Veligost\Processors\AbstractProcessor')->
-            disableOriginalConstructor()->setMethods(array('getSessionStorage'))->getMock();
-        $processor->expects($this->any())->method('getSessionStorage')->
-            will($this->returnValue($storage));
+        $session = $this->getMock('stdClass', array('create', 'getId'));
+        $session->expects($this->once())->method('create');
+        $session->expects($this->once())->method('getId')->will($this->returnValue('foo'));
+        $sessionProperty = new \ReflectionProperty('\Veligost\Processors\AbstractProcessor',
+            'session');
+        $sessionProperty->setAccessible(true);
+        $sessionProperty->setValue($processor, $session);
 
         $response = $this->getMock('stdClass', array('add'));
         $response->expects($this->exactly(3))->method('add');
 
-        $p_response = new \ReflectionProperty('\Veligost\Processors\AbstractProcessor', 'response');
-        $p_response->setAccessible(true);
-        $p_response->setValue($processor, $response);
+        $responseProperty = new \ReflectionProperty('\Veligost\Processors\AbstractProcessor',
+            'response');
+        $responseProperty->setAccessible(true);
+        $responseProperty->setValue($processor, $response);
 
-        $m_actionCheckAuth = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
+        $actionCheckAuth = new \ReflectionMethod('\Veligost\Processors\AbstractProcessor',
             'actionCheckAuth');
-        $m_actionCheckAuth->setAccessible(true);
+        $actionCheckAuth->setAccessible(true);
 
-        $m_actionCheckAuth->invoke($processor);
+        $actionCheckAuth->invoke($processor);
     }
 
     /**

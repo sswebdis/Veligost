@@ -25,8 +25,11 @@ namespace Veligost\Processors;
 
 use InvalidArgumentException,
     Veligost\HTTP\Request\RequestInterface,
+    Veligost\Session,
     Veligost\SessionStorage\SessionStorageInterface,
     Veligost\SessionStorage\Native as NativeSessionStorage,
+    Veligost\FileStorage\FileStorageInterface,
+    Veligost\FileStorage\Directory as DirectoryFileStorage,
     Veligost\Response,
     Veligost\Interfaces\CatalogHandler;
 
@@ -48,10 +51,23 @@ abstract class AbstractProcessor
     protected $request;
 
     /**
+     * Сессия
+     *
+     * @var Session
+     */
+    protected $session;
+
+    /**
      * Хранилище сессий
      * @var SessionStorageInterface
      */
     protected $sessionStorage;
+
+    /**
+     * Хранилище файлов
+     * @var FileStorageInterface
+     */
+    protected $fileStorage;
 
     /**
      * Ответ 1С
@@ -75,6 +91,26 @@ abstract class AbstractProcessor
     {
        $this->request = $request;
        $this->response = new Response();
+    }
+
+    /**
+     * Задаёт хранилище сессий
+     *
+     * @param \Veligost\SessionStorage\SessionStorageInterface $storage
+     */
+    public function setSessionStorage(SessionStorageInterface $storage)
+    {
+        $this->sessionStorage = $storage;
+    }
+
+    /**
+     * Задаёт хранилище файлов
+     *
+     * @param \Veligost\FileStorage\FileStorageInterface $storage
+     */
+    public function setFileStorage(FileStorageInterface $storage)
+    {
+        $this->fileStorage = $storage;
     }
 
     /**
@@ -110,6 +146,7 @@ abstract class AbstractProcessor
      */
     public function process()
     {
+        $this->initSession();
         if ($this->request->getArg('mode') == 'checkauth')
         {
             $this->actionCheckAuth();
@@ -132,20 +169,29 @@ abstract class AbstractProcessor
     }
 
     /**
-     * Возвращает хранилище сессий
+     * Подготавливает сессию к работе
      *
-     * Если объект не был задан вызовом {@link setSessionStorage()}, то будет создан экземпляр
-     * класса {@link NativeSessionStorage}.
+     * Если хранилище сессий не было задано вызовом {@link setSessionStorage()}, то будет создан
+     * экземпляр класса {@link \Veligost\SessionStorage\Native}.
      *
-     * @return SessionStorageInterface
+     * Если хранилище файлов не было задано вызовом {@link setFileStorage()}, то будет создан
+     * экземпляр класса {@link \Veligost\FileStorage\Directory} с хранением файлов в папке,
+     * возвращаемой {@link sys_get_temp_dir() sys_get_temp_dir()}.
      */
-    protected function getSessionStorage()
+    protected function initSession()
     {
         if (!$this->sessionStorage)
         {
             $this->sessionStorage = new NativeSessionStorage($this->cookieName);
         }
-        return $this->sessionStorage;
+
+        if (!$this->fileStorage)
+        {
+            $this->fileStorage = new DirectoryFileStorage(sys_get_temp_dir());
+        }
+
+        $sid = $this->request->getCookie($this->cookieName);
+        $this->session = new Session($sid, $this->sessionStorage, $this->fileStorage);
     }
 
     /**
@@ -155,9 +201,7 @@ abstract class AbstractProcessor
      */
     protected function checkSession()
     {
-        $sessionStorage = $this->getSessionStorage();
-        $sid = $this->request->getCookie($this->cookieName);
-        if ($sid && $sessionStorage->sessionExists($sid))
+        if ($this->session->exists())
         {
             return true;
         }
@@ -172,10 +216,11 @@ abstract class AbstractProcessor
      */
     protected function actionCheckAuth()
     {
-        $sessionStorage = $this->getSessionStorage();
+        $this->session->create();
+
         $this->response->add(Response::SUCCESS);
         $this->response->add($this->cookieName);
-        $this->response->add($sessionStorage->createSession());
+        $this->response->add($this->session->getId());
     }
 
     /**
@@ -203,4 +248,6 @@ abstract class AbstractProcessor
         }
         $this->response->add('file_limit=' . $fileLimit);
     }
+    //@codeCoverageIgnoreStart
 }
+//@codeCoverageIgnoreEnd
