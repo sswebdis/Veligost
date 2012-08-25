@@ -29,5 +29,7 @@ use Veligost\CommerceML\Base\SimpleElement;
  * Стереотип «Identifier»
  */
 abstract class Identifier extends SimpleElement
+//@codeCoverageIgnoreStart
 {
 }
+//@codeCoverageIgnoreEnd

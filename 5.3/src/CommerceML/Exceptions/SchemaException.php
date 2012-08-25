@@ -27,5 +27,7 @@ namespace Veligost\CommerceML\Exceptions;
  * Документ не соответствует схеме CommerceML
  */
 class SchemaException extends Exception
+//@codeCoverageIgnoreStart
 {
 }
+//@codeCoverageIgnoreEnd

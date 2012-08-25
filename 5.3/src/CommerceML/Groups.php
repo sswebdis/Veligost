@@ -29,10 +29,9 @@ use Veligost\CommerceML\Base\ElementGroup;
  * Группы
  *
  */
-//@codeCoverageIgnoreStart
 class Groups extends ElementGroup
+//@codeCoverageIgnoreStart
 {
-    //@codeCoverageIgnoreEnd
     /**
      * @var string
      */
@@ -48,3 +47,4 @@ class Groups extends ElementGroup
      */
     protected $childClassName = 'Group';
 }
+//@codeCoverageIgnoreEnd

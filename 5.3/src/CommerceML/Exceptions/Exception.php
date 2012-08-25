@@ -29,5 +29,7 @@ use Exception as PHPException;
  * Абстрактная исключительная ситуация при работе с документом CommerceML
  */
 class Exception extends PHPException
+//@codeCoverageIgnoreStart
 {
 }
+//@codeCoverageIgnoreEnd

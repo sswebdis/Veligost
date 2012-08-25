@@ -29,5 +29,7 @@ use Veligost\CommerceML\Base\SimpleElement;
  * Стереотип «Text»
  */
 abstract class Text extends SimpleElement
+//@codeCoverageIgnoreStart
 {
 }
+//@codeCoverageIgnoreEnd

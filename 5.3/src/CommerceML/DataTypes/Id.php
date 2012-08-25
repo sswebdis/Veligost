@@ -29,5 +29,7 @@ use Veligost\CommerceML\Stereotypes\Identifier;
  * Идентификатор
  */
 class Id extends Identifier
+//@codeCoverageIgnoreStart
 {
 }
+//@codeCoverageIgnoreEnd

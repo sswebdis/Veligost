@@ -66,5 +66,6 @@ class ElementRegistry
         $path = $element->getDOMElement()->getNodePath();
         $this->data[$path] = $element;
     }
+    //@codeCoverageIgnoreStart
 }
-
+//@codeCoverageIgnoreEnd

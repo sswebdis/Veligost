@@ -23,6 +23,7 @@
 
 namespace Veligost\FileStorage;
 
+//@codeCoverageIgnoreStart
 /**
  * Интерфейс хранилища файлов
  *
@@ -69,3 +70,4 @@ interface FileStorageInterface
      */
     public function cleanup($sid);
 }
+//@codeCoverageIgnoreEnd

@@ -32,5 +32,7 @@ use Veligost\CommerceML\Stereotypes\Text;
  * наличии.
  */
 class Title extends Text
+//@codeCoverageIgnoreStart
 {
 }
+//@codeCoverageIgnoreEnd

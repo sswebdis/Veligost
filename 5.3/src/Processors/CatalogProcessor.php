@@ -23,7 +23,9 @@
 
 namespace Veligost\Processors;
 
-use Veligost\Response;
+use Veligost\Response,
+    Veligost\CommerceML\Document,
+    DOMDocument;
 
 /**
  * Процессор выгрузки каталогов продукции
@@ -38,7 +40,7 @@ class CatalogProcessor extends AbstractProcessor
         $filename = $this->request->getArg('filename');
         if ($filename)
         {
-            file_put_contents('/tmp/' . $filename, $this->request->getBody());
+            $this->session->storeFile($filename, $this->request->getBody());
             $this->response->add(Response::SUCCESS);
         }
         else
@@ -56,7 +58,14 @@ class CatalogProcessor extends AbstractProcessor
         $filename = $this->request->getArg('filename');
         if ($filename)
         {
-            // TODO
+            $xml = new DOMDocument;
+            $xml->load($this->session->retrieveFile($filename));
+
+            if ($this->handler)
+            {
+                $doc = new Document($xml->firstChild);
+                call_user_func(array($this->handler, 'import'), $doc);
+            }
             $this->response->add(Response::SUCCESS);
         }
         else

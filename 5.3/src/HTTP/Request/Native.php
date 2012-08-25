@@ -76,5 +76,6 @@ class Native implements RequestInterface
         }
         return $body;
     }
-
+    //@codeCoverageIgnoreStart
 }
+//@codeCoverageIgnoreEnd

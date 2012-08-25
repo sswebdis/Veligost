@@ -31,5 +31,7 @@ use Veligost\CommerceML\Stereotypes\Text;
  * Текст комментария (пояснения, описания)
  */
 class Comment extends Text
+//@codeCoverageIgnoreStart
 {
 }
+//@codeCoverageIgnoreEnd

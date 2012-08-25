@@ -27,5 +27,7 @@ namespace Veligost\CommerceML\Stereotypes;
  * Стереотип «Message»
  */
 abstract class Message extends Component
+//@codeCoverageIgnoreStart
 {
 }
+//@codeCoverageIgnoreEnd

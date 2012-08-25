@@ -21,6 +21,7 @@
  * limitations under the License.
  */
 
+//@codeCoverageIgnoreStart
 spl_autoload_register(
     function ($className)
     {
@@ -36,3 +37,4 @@ spl_autoload_register(
         }
     }
 );
+//@codeCoverageIgnoreEnd

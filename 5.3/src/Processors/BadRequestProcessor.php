@@ -39,4 +39,6 @@ class BadRequestProcessor extends AbstractProcessor
         $this->response->add('Неправильный запрос от 1С');
         $this->response->send();
     }
+    //@codeCoverageIgnoreStart
 }
+//@codeCoverageIgnoreEnd
