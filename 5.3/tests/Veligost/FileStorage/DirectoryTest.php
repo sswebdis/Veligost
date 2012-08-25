@@ -41,6 +41,11 @@ class DirectoryTest extends \PHPUnit_Framework_TestCase
      */
     public function test_overall()
     {
+        if (!class_exists('vfsStream'))
+        {
+            $this->markTestSkipped('vfsStream required to run this test');
+        }
+
         vfsStreamWrapper::register();
         vfsStream::setup('path');
 

@@ -27,6 +27,8 @@ namespace
     define('_SRC_DIR', realpath(__DIR__ . '/../src'));
 
     require_once _SRC_DIR . '/autoload.php';
+
+    include_once 'vfsStream/vfsStream.php';
 }
 
 namespace Veligost

@@ -23,9 +23,6 @@
 
 namespace Veligost\Tests\HTTP\Request;
 
-require_once 'vfsStream/vfsStream.php';
-
-use vfsStream, vfsStreamWrapper, vfsStreamDirectory;
 use Veligost\HTTP\Request\Native;
 
 /**
