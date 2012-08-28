@@ -59,11 +59,11 @@ class Classifier extends Message
      *
      * @throws Exceptions\SchemaException
      *
-     * @return Groups
+     * @return Components\GroupBlock
      */
     public function getGroups()
     {
-        $groups = $this->getChild('Группы', 'GroupBlock');
+        $groups = $this->getChild('Группы', 'Components\GroupBlock');
         return $groups;
     }
 }

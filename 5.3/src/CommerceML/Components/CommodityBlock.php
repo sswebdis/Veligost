@@ -45,6 +45,6 @@ class CommodityBlock extends ElementGroup
     /**
      * @var string
      */
-    protected $childClassName = 'Commodity';
+    protected $childClassName = 'Components\Commodity';
 }
 //@codeCoverageIgnoreEnd

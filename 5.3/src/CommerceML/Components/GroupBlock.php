@@ -45,6 +45,6 @@ class GroupBlock extends ElementGroup
     /**
      * @var string
      */
-    protected $childClassName = 'Group';
+    protected $childClassName = 'Components\Group';
 }
 //@codeCoverageIgnoreEnd
