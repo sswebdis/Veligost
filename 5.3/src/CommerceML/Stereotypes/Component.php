@@ -41,7 +41,7 @@ abstract class Component extends Element
      *
      * @return null|Element
      */
-    protected function getChild($nodeName, $className)
+    public function getChild($nodeName, $className)
     {
         $node = $this->getChildElement($nodeName);
         if (null === $node)
