@@ -83,6 +83,7 @@ class Document extends Component
     {
         return new DateTime($this->element->getAttribute('ДатаФормирования'));
     }
+
     /**
      * Возвращает классификатор или null
      *
@@ -91,5 +92,15 @@ class Document extends Component
     public function getClassifier()
     {
         return $this->getChild('Классификатор', 'Classifier');
+    }
+
+    /**
+     * Возвращает каталог или null
+     *
+     * @return Catalog|null
+     */
+    public function getCatalog()
+    {
+        return $this->getChild('Каталог', 'Catalog');
     }
 }
