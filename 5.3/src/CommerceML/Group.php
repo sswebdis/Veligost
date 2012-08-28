@@ -47,11 +47,11 @@ class Group extends Component
      *
      * @throws Exceptions\SchemaException
      *
-     * @return DataTypes\Id
+     * @return Types\Id
      */
     public function getId()
     {
-        $id = $this->getChild('Ид', 'DataTypes\Id');
+        $id = $this->getChild('Ид', 'Types\Id');
         if (null === $id)
         {
             throw new SchemaException('У Группы отсутствует элемент Ид');
@@ -64,11 +64,11 @@ class Group extends Component
      *
      * @throws Exceptions\SchemaException
      *
-     * @return DataTypes\Title
+     * @return Types\Title
      */
     public function getTitle()
     {
-        $title = $this->getChild('Наименование', 'DataTypes\Title');
+        $title = $this->getChild('Наименование', 'Types\Title');
         if (null === $title)
         {
             throw new SchemaException('У Группы отсутствует элемент Наименование');
@@ -81,10 +81,10 @@ class Group extends Component
      *
      * @throws Exceptions\SchemaException
      *
-     * @return DataTypes\Comment
+     * @return Types\Comment
      */
     public function getComment()
     {
-        return $this->getChild('Описание', 'DataTypes\Comment');
+        return $this->getChild('Описание', 'Types\Comment');
     }
 }

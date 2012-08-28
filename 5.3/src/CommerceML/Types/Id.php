@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML\DataTypes;
+namespace Veligost\CommerceML\Types;
 
 use Veligost\CommerceML\Stereotypes\Identifier;
 

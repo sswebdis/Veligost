@@ -35,11 +35,11 @@ abstract class Message extends Component
      *
      * @throws SchemaException
      *
-     * @return \Veligost\CommerceML\DataTypes\Id
+     * @return \Veligost\CommerceML\Types\Id
      */
     public function getId()
     {
-        $id = $this->getChild('Ид', 'DataTypes\Id');
+        $id = $this->getChild('Ид', 'Types\Id');
         if (null === $id)
         {
             throw new SchemaException('У узла ' . $this->nodeName . ' отсутствует элемент Ид');
@@ -52,11 +52,11 @@ abstract class Message extends Component
      *
      * @throws Exceptions\SchemaException
      *
-     * @return \Veligost\CommerceML\DataTypes\Title
+     * @return \Veligost\CommerceML\Types\Title
      */
     public function getTitle()
     {
-        $title = $this->getChild('Наименование', 'DataTypes\Title');
+        $title = $this->getChild('Наименование', 'Types\Title');
         if (null === $title)
         {
             throw new SchemaException('У ' . $this->nodeName . ' отсутствует элемент Наименование');
@@ -67,11 +67,11 @@ abstract class Message extends Component
     /**
      * Возвращает описание
      *
-     * @return \Veligost\CommerceML\DataTypes\Comment|null
+     * @return \Veligost\CommerceML\Types\Comment|null
      */
     public function getComment()
     {
-        return $this->getChild('Описание', 'DataTypes\Comment');
+        return $this->getChild('Описание', 'Types\Comment');
     }
     //@codeCoverageIgnoreStart
 }

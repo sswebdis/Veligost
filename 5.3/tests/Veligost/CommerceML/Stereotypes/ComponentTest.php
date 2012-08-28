@@ -46,11 +46,11 @@ class ComponentTest extends \PHPUnit_Framework_TestCase
         $elem = $this->getMockForAbstractClass('\Veligost\CommerceML\Stereotypes\Component',
             array($xml->firstChild, $doc));
 
-        $node = $m_getChild->invoke($elem, 'Ид', 'DataTypes\Id');
-        $this->assertInstanceOf('\Veligost\CommerceML\DataTypes\Id', $node);
+        $node = $m_getChild->invoke($elem, 'Ид', 'Types\Id');
+        $this->assertInstanceOf('\Veligost\CommerceML\Types\Id', $node);
         $this->assertSame($node, $m_getChild->invoke($elem, 'Ид', 'Id'));
 
-        $node = $m_getChild->invoke($elem, 'Наименование', 'DataTypes\Title');
+        $node = $m_getChild->invoke($elem, 'Наименование', 'Types\Title');
         $this->assertNull($node);
     }
 }

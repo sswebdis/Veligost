@@ -21,17 +21,16 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML\DataTypes;
+namespace Veligost\CommerceML\Types;
 
 use Veligost\CommerceML\Stereotypes\Text;
 
 /**
- * Наименование
+ * Комментарий
  *
- * Наименование контрагента, описание товара (изделия) и дополнительная информация при ее
- * наличии.
+ * Текст комментария (пояснения, описания)
  */
-class Title extends Text
+class Comment extends Text
 //@codeCoverageIgnoreStart
 {
 }
