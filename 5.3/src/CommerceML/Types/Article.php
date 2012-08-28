@@ -28,7 +28,7 @@ use Veligost\CommerceML\Stereotypes\Identifier;
 /**
  * Артикул
  */
-class Id extends Identifier
+class Article extends Identifier
 //@codeCoverageIgnoreStart
 {
 }
