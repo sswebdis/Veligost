@@ -21,9 +21,9 @@
  * limitations under the License.
  */
 
-namespace Veligost\Tests\CommerceML;
+namespace Veligost\Tests\CommerceML\Components;
 
-use Veligost\CommerceML\Group,
+use Veligost\CommerceML\Components\Group,
     Veligost\CommerceML\Document;
 
 /**
@@ -32,9 +32,9 @@ use Veligost\CommerceML\Group,
 class GroupTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers \Veligost\CommerceML\Group::getId
-     * @covers \Veligost\CommerceML\Group::getTitle
-     * @covers \Veligost\CommerceML\Group::getComment
+     * @covers \Veligost\CommerceML\Components\Group::getId
+     * @covers \Veligost\CommerceML\Components\Group::getTitle
+     * @covers \Veligost\CommerceML\Components\Group::getComment
      */
     public function test_overall()
     {

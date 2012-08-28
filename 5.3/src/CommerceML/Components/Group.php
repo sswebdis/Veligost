@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\CommerceML\Components;
 
 use Veligost\CommerceML\Stereotypes\Component,
     Veligost\CommerceML\Exceptions\SchemaException;
@@ -47,7 +47,7 @@ class Group extends Component
      *
      * @throws Exceptions\SchemaException
      *
-     * @return Types\Id
+     * @return \Veligost\CommerceML\Types\Id
      */
     public function getId()
     {
@@ -64,7 +64,7 @@ class Group extends Component
      *
      * @throws Exceptions\SchemaException
      *
-     * @return Types\Title
+     * @return \Veligost\CommerceML\Types\Title
      */
     public function getTitle()
     {
@@ -81,7 +81,7 @@ class Group extends Component
      *
      * @throws Exceptions\SchemaException
      *
-     * @return Types\Comment
+     * @return \Veligost\CommerceML\Types\Comment
      */
     public function getComment()
     {

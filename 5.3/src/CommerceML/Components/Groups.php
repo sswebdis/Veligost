@@ -21,7 +21,7 @@
  * limitations under the License.
  */
 
-namespace Veligost\CommerceML;
+namespace Veligost\CommerceML\Components;
 
 use Veligost\CommerceML\Base\ElementGroup;
 
