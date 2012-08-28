@@ -63,7 +63,7 @@ class Classifier extends Message
      */
     public function getGroups()
     {
-        $groups = $this->getChild('Группы', 'Groups');
+        $groups = $this->getChild('Группы', 'GroupBlock');
         return $groups;
     }
 }

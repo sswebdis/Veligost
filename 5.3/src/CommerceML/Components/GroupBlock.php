@@ -29,7 +29,7 @@ use Veligost\CommerceML\Base\ElementGroup;
  * Группы
  *
  */
-class Groups extends ElementGroup
+class GroupBlock extends ElementGroup
 //@codeCoverageIgnoreStart
 {
     /**
